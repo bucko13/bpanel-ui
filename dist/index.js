@@ -5217,101 +5217,8 @@ object-assign
 
         /***/
       },
-      /* 89 */
-      /***/ function(module, exports, __webpack_require__) {
-        'use strict';
-
-        Object.defineProperty(exports, '__esModule', {
-          value: true
-        });
-
-        var _extends2 = __webpack_require__(12);
-
-        var _extends3 = _interopRequireDefault(_extends2);
-
-        var _getPrototypeOf = __webpack_require__(6);
-
-        var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-        var _classCallCheck2 = __webpack_require__(2);
-
-        var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-        var _createClass2 = __webpack_require__(3);
-
-        var _createClass3 = _interopRequireDefault(_createClass2);
-
-        var _possibleConstructorReturn2 = __webpack_require__(7);
-
-        var _possibleConstructorReturn3 = _interopRequireDefault(
-          _possibleConstructorReturn2
-        );
-
-        var _inherits2 = __webpack_require__(8);
-
-        var _inherits3 = _interopRequireDefault(_inherits2);
-
-        var _react = __webpack_require__(1);
-
-        var _react2 = _interopRequireDefault(_react);
-
-        var _propTypes = __webpack_require__(0);
-
-        var _propTypes2 = _interopRequireDefault(_propTypes);
-
-        function _interopRequireDefault(obj) {
-          return obj && obj.__esModule ? obj : { default: obj };
-        }
-
-        exports.default = function(ComponentToWrap) {
-          return (function(_PureComponent) {
-            (0, _inherits3.default)(ThemeComponent, _PureComponent);
-
-            function ThemeComponent() {
-              (0, _classCallCheck3.default)(this, ThemeComponent);
-              return (0, _possibleConstructorReturn3.default)(
-                this,
-                (ThemeComponent.__proto__ ||
-                  (0, _getPrototypeOf2.default)(ThemeComponent)
-                ).apply(this, arguments)
-              );
-            }
-
-            (0, _createClass3.default)(
-              ThemeComponent,
-              [
-                {
-                  key: 'render',
-                  value: function render() {
-                    var theme = this.context.theme;
-                    // what we do is basically rendering `ComponentToWrap`
-                    // with an added `theme` prop, like a hook
-
-                    return _react2.default.createElement(
-                      ComponentToWrap,
-                      (0, _extends3.default)({}, this.props, { theme: theme })
-                    );
-                  }
-                }
-              ],
-              [
-                {
-                  key: 'contextTypes',
-
-                  // let’s define what’s needed from the `context`
-                  get: function get() {
-                    return { theme: _propTypes2.default.object.isRequired };
-                  }
-                }
-              ]
-            );
-            return ThemeComponent;
-          })(_react.PureComponent);
-        };
-
-        /***/
-      },
-      /* 90 */
+      ,
+      /* 89 */ /* 90 */
       /***/ function(module, exports, __webpack_require__) {
         'use strict';
 
@@ -10785,6 +10692,8 @@ object-assign
 
         var _propTypes2 = _interopRequireDefault(_propTypes);
 
+        var _utils = __webpack_require__(283);
+
         __webpack_require__(167);
 
         function _interopRequireDefault(obj) {
@@ -10846,7 +10755,7 @@ object-assign
           return Button;
         })(_react.PureComponent);
 
-        exports.default = Button;
+        exports.default = (0, _utils.connectTheme)(Button);
 
         /***/
       },
@@ -15187,7 +15096,7 @@ object-assign
         // module
         exports.push([
           module.i,
-          '.default {\n  background-color: transparent;\n  border: 1px solid #00ffe0;\n  border-radius: 5px;\n  color: #00ffe0; }\n\n.error {\n  background-color: red; }\n',
+          '.default {\n  background-color: transparent;\n  border: 1px solid #00ffe0;\n  border-radius: 5px;\n  color: #00ffe0; }\n',
           ''
         ]);
 
@@ -15371,11 +15280,11 @@ object-assign
 
         var _propTypes2 = _interopRequireDefault(_propTypes);
 
+        var _constants = __webpack_require__(282);
+
+        var _utils = __webpack_require__(283);
+
         __webpack_require__(172);
-
-        var _headerConstants = __webpack_require__(90);
-
-        var _headerConstants2 = _interopRequireDefault(_headerConstants);
 
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
@@ -15386,7 +15295,7 @@ object-assign
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
               : {};
-          return _headerConstants2.default.HEADER_ELEMENTS[props.type];
+          return _constants.HEADER_CONSTANTS.HEADER_ELEMENTS[props.type];
         };
 
         var Header = (function(_PureComponent) {
@@ -15452,7 +15361,7 @@ object-assign
           return Header;
         })(_react.PureComponent);
 
-        exports.default = Header;
+        exports.default = (0, _utils.connectTheme)(Header);
 
         /***/
       },
@@ -15666,6 +15575,8 @@ object-assign
 
         var _propTypes2 = _interopRequireDefault(_propTypes);
 
+        var _utils = __webpack_require__(283);
+
         __webpack_require__(205);
 
         function _interopRequireDefault(obj) {
@@ -15729,7 +15640,7 @@ object-assign
           return Link;
         })(_react.PureComponent);
 
-        exports.default = Link;
+        exports.default = (0, _utils.connectTheme)(Link);
 
         /***/
       },
@@ -20664,6 +20575,8 @@ object-assign
 
         var _propTypes2 = _interopRequireDefault(_propTypes);
 
+        var _utils = __webpack_require__(283);
+
         __webpack_require__(209);
 
         function _interopRequireDefault(obj) {
@@ -20719,7 +20632,7 @@ object-assign
           return Text;
         })(_react.PureComponent);
 
-        exports.default = Text;
+        exports.default = (0, _utils.connectTheme)(Text);
 
         /***/
       },
@@ -20845,6 +20758,8 @@ object-assign
 
         var _reactVirtualized = __webpack_require__(213);
 
+        var _utils = __webpack_require__(283);
+
         __webpack_require__(278);
 
         __webpack_require__(280);
@@ -20898,9 +20813,7 @@ object-assign
                             return _react2.default.createElement(
                               _reactVirtualized.Column,
                               (0, _extends3.default)(
-                                {
-                                  key: 'table-' + colProps.dataKey
-                                },
+                                { key: 'table-' + colProps.dataKey },
                                 colProp
                               )
                             );
@@ -20932,7 +20845,7 @@ object-assign
           return Table;
         })(_react.PureComponent);
 
-        exports.default = Table;
+        exports.default = (0, _utils.connectTheme)(Table);
 
         /***/
       },
@@ -58246,7 +58159,7 @@ object-assign
         Object.defineProperty(exports, '__esModule', {
           value: true
         });
-        exports.headerConstants = undefined;
+        exports.HEADER_CONSTANTS = undefined;
 
         var _headerConstants = __webpack_require__(90);
 
@@ -58256,7 +58169,7 @@ object-assign
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
-        exports.headerConstants = _headerConstants2.default;
+        exports.HEADER_CONSTANTS = _headerConstants2.default;
 
         /***/
       },
@@ -58267,17 +58180,112 @@ object-assign
         Object.defineProperty(exports, '__esModule', {
           value: true
         });
-        exports.applyTheme = undefined;
+        exports.connectTheme = undefined;
 
-        var _applyTheme = __webpack_require__(89);
+        var _connectTheme = __webpack_require__(284);
 
-        var _applyTheme2 = _interopRequireDefault(_applyTheme);
+        var _connectTheme2 = _interopRequireDefault(_connectTheme);
 
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
-        exports.applyTheme = _applyTheme2.default;
+        exports.connectTheme = _connectTheme2.default;
+
+        /***/
+      },
+      /* 284 */
+      /***/ function(module, exports, __webpack_require__) {
+        'use strict';
+
+        Object.defineProperty(exports, '__esModule', {
+          value: true
+        });
+
+        var _extends2 = __webpack_require__(12);
+
+        var _extends3 = _interopRequireDefault(_extends2);
+
+        var _getPrototypeOf = __webpack_require__(6);
+
+        var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+        var _classCallCheck2 = __webpack_require__(2);
+
+        var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+        var _createClass2 = __webpack_require__(3);
+
+        var _createClass3 = _interopRequireDefault(_createClass2);
+
+        var _possibleConstructorReturn2 = __webpack_require__(7);
+
+        var _possibleConstructorReturn3 = _interopRequireDefault(
+          _possibleConstructorReturn2
+        );
+
+        var _inherits2 = __webpack_require__(8);
+
+        var _inherits3 = _interopRequireDefault(_inherits2);
+
+        var _react = __webpack_require__(1);
+
+        var _react2 = _interopRequireDefault(_react);
+
+        var _propTypes = __webpack_require__(0);
+
+        var _propTypes2 = _interopRequireDefault(_propTypes);
+
+        function _interopRequireDefault(obj) {
+          return obj && obj.__esModule ? obj : { default: obj };
+        }
+
+        exports.default = function(ComponentToWrap) {
+          return (function(_PureComponent) {
+            (0, _inherits3.default)(ThemeComponent, _PureComponent);
+
+            function ThemeComponent() {
+              (0, _classCallCheck3.default)(this, ThemeComponent);
+              return (0, _possibleConstructorReturn3.default)(
+                this,
+                (ThemeComponent.__proto__ ||
+                  (0, _getPrototypeOf2.default)(ThemeComponent)
+                ).apply(this, arguments)
+              );
+            }
+
+            (0, _createClass3.default)(
+              ThemeComponent,
+              [
+                {
+                  key: 'render',
+                  value: function render() {
+                    var theme = this.context.theme;
+                    // We are rendering <ComponentToWrap>
+                    // with an added `theme` prop
+
+                    return _react2.default.createElement(
+                      ComponentToWrap,
+                      (0, _extends3.default)({}, this.props, { theme: theme })
+                    );
+                  }
+                }
+              ],
+              [
+                {
+                  key: 'contextTypes',
+
+                  // Define what’s needed from the `context`
+                  // The theme is provided from the <ThemeProvider> in the bpanel repo
+                  get: function get() {
+                    return { theme: _propTypes2.default.object.isRequired };
+                  }
+                }
+              ]
+            );
+            return ThemeComponent;
+          })(_react.PureComponent);
+        };
 
         /***/
       }

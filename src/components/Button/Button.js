@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { connectTheme } from '../../utils';
+
 import './Button.scss';
 
-export default class Button extends PureComponent {
+class Button extends PureComponent {
   static get propTypes() {
     return {
       type: PropTypes.string,
@@ -20,3 +22,5 @@ export default class Button extends PureComponent {
     );
   }
 }
+
+export default connectTheme(Button);

@@ -1,3 +1,3 @@
-import headerConstants from './headerConstants';
+import HEADER_CONSTANTS from './headerConstants';
 
-export { headerConstants };
+export { HEADER_CONSTANTS };

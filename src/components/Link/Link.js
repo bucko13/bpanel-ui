@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { connectTheme } from '../../utils';
+
 import './Link.scss';
 
-export default class Link extends PureComponent {
+class Link extends PureComponent {
   static get propTypes() {
     return {
       children: PropTypes.node,
@@ -24,3 +26,5 @@ export default class Link extends PureComponent {
     );
   }
 }
+
+export default connectTheme(Link);

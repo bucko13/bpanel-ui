@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { connectTheme } from '../../utils';
+
 import './Text.scss';
 
-export default class Text extends PureComponent {
+class Text extends PureComponent {
   static get propTypes() {
     return {
       children: PropTypes.node
@@ -15,3 +17,5 @@ export default class Text extends PureComponent {
     return <span {...otherProps}>{children}</span>;
   }
 }
+
+export default connectTheme(Text);

@@ -6,10 +6,12 @@ import {
   Column
 } from 'react-virtualized';
 
+import { connectTheme } from '../../utils';
+
 import 'react-virtualized/styles.css';
 import './Table.scss';
 
-export default class Table extends PureComponent {
+class Table extends PureComponent {
   static get propTypes() {
     return {
       colProps: PropTypes.arrayOf(
@@ -39,3 +41,5 @@ export default class Table extends PureComponent {
     );
   }
 }
+
+export default connectTheme(Table);
