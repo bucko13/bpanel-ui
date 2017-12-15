@@ -1,6 +1,5 @@
-import Button from './Button';
-import Header from './Header';
-import Link from './Link';
-import Text from './Text';
+import * as components from './components';
+import * as constants from './constants';
+import * as utils from './utils';
 
-export { Button, Header, Link, Text };
+export { components, constants, utils };
