@@ -10652,10 +10652,6 @@ object-assign
           value: true
         });
 
-        var _extends2 = __webpack_require__(12);
-
-        var _extends3 = _interopRequireDefault(_extends2);
-
         var _objectWithoutProperties2 = __webpack_require__(16);
 
         var _objectWithoutProperties3 = _interopRequireDefault(
@@ -10721,20 +10717,15 @@ object-assign
                 key: 'render',
                 value: function render() {
                   var _props = this.props,
-                    _props$type = _props.type,
-                    type = _props$type === undefined ? 'default' : _props$type,
                     children = _props.children,
                     otherProps = (0, _objectWithoutProperties3.default)(
                       _props,
-                      ['type', 'children']
+                      ['children']
                     );
 
                   return _react2.default.createElement(
                     'button',
-                    (0, _extends3.default)(
-                      { className: '' + type },
-                      otherProps
-                    ),
+                    otherProps,
                     children
                   );
                 }
@@ -10745,7 +10736,6 @@ object-assign
                 key: 'propTypes',
                 get: function get() {
                   return {
-                    type: _propTypes2.default.string,
                     children: _propTypes2.default.node
                   };
                 }
@@ -15094,11 +15084,7 @@ object-assign
         // imports
 
         // module
-        exports.push([
-          module.i,
-          '.default {\n  background-color: transparent;\n  border: 1px solid #00ffe0;\n  border-radius: 5px;\n  color: #00ffe0; }\n',
-          ''
-        ]);
+        exports.push([module.i, '', '']);
 
         // exports
 

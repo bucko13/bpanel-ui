@@ -8,18 +8,13 @@ import './Button.scss';
 class Button extends PureComponent {
   static get propTypes() {
     return {
-      type: PropTypes.string,
       children: PropTypes.node
     };
   }
 
   render() {
-    const { type = 'default', children, ...otherProps } = this.props;
-    return (
-      <button className={`${type}`} {...otherProps}>
-        {children}
-      </button>
-    );
+    const { children, ...otherProps } = this.props;
+    return <button {...otherProps}>{children}</button>;
   }
 }
 
