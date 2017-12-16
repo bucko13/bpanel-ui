@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connectTheme } from '../../utils';
 
-import './Text.scss';
-
 class Text extends PureComponent {
   static get propTypes() {
     return {
@@ -13,8 +11,12 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { children, ...otherProps } = this.props;
-    return <span {...otherProps}>{children}</span>;
+    const { children, theme, style, ...otherProps } = this.props;
+    return (
+      <span style={{ ...theme.text, ...style }} {...otherProps}>
+        {children}
+      </span>
+    );
   }
 }
 

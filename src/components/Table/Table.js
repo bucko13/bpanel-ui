@@ -9,7 +9,6 @@ import {
 import { connectTheme } from '../../utils';
 
 import 'react-virtualized/styles.css';
-import './Table.scss';
 
 class Table extends PureComponent {
   static get propTypes() {
@@ -25,12 +24,31 @@ class Table extends PureComponent {
   }
 
   render() {
-    const { colProps, tableContainerStyles, ...tableProps } = this.props;
+    const {
+      colProps,
+      theme: {
+        table: {
+          container: containerStyle,
+          header: headerStyle,
+          body: bodyStyle,
+          row: rowStyle
+        }
+      },
+      style,
+      tableContainerStyles,
+      ...tableProps
+    } = this.props;
     return (
-      <div style={tableContainerStyles}>
-        <AutoSizer disableHeight style={tableProps.style}>
+      <div style={{ ...containerStyle, ...tableContainerStyles }}>
+        <AutoSizer disableHeight>
           {({ width }) => (
-            <VirtualizedTable {...tableProps} width={width}>
+            <VirtualizedTable
+              width={width}
+              style={{ ...bodyStyle, ...style }}
+              headerStyle={{ ...headerStyle, ...tableProps.headerStyle }}
+              rowStyle={rowStyle || tableProps.rowStyle}
+              {...tableProps}
+            >
               {colProps.map(colProp => (
                 <Column key={`table-${colProps.dataKey}`} {...colProp} />
               ))}

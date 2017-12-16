@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connectTheme } from '../../utils';
 
-import './Button.scss';
-
 class Button extends PureComponent {
   static get propTypes() {
     return {
@@ -13,8 +11,12 @@ class Button extends PureComponent {
   }
 
   render() {
-    const { children, ...otherProps } = this.props;
-    return <button {...otherProps}>{children}</button>;
+    const { children, theme, style, ...otherProps } = this.props;
+    return (
+      <button style={{ ...theme.button, ...style }} {...otherProps}>
+        {children}
+      </button>
+    );
   }
 }
 

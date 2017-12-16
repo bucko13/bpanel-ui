@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { HEADER_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
 
-import './Header.scss';
-
 const getHeader = (props = {}) => HEADER_CONSTANTS.HEADER_ELEMENTS[props.type];
 
 class Header extends PureComponent {
@@ -17,13 +15,14 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { type = 'h1', children, ...otherProps } = this.props;
+    const { type = 'h1', theme, style, children, ...otherProps } = this.props;
     const HeaderElement = getHeader({ type, children, otherProps });
     return (
       <HeaderElement
         className={`${type}`}
         type={type}
         children={children}
+        style={{ ...theme.header, ...style }}
         {...otherProps}
       />
     );

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import { connectTheme } from '../../utils';
 
-import './Link.scss';
-
 class Link extends PureComponent {
   static get propTypes() {
     return {
@@ -15,12 +13,13 @@ class Link extends PureComponent {
   }
 
   render() {
-    const { children, to, ...otherProps } = this.props;
+    const { children, to, theme, style, ...otherProps } = this.props;
     return (
       <RouterLink
         to={to}
         className={`b-link ${otherProps.className}`}
         children={children}
+        style={{ ...theme.link, ...style }}
         {...otherProps}
       />
     );

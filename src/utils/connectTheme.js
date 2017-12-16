@@ -1,6 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+const themeShape = {
+  button: {},
+  header: {},
+  link: {},
+  table: {
+    body: {},
+    container: {},
+    header: {},
+    // row can either be an object or function
+    // see `rowStyle` in:
+    // https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
+    row: {}
+  },
+  text: {}
+};
+
 export default ComponentToWrap => {
   return class ThemeComponent extends PureComponent {
     // Define what’s needed from the `context`
@@ -10,7 +26,7 @@ export default ComponentToWrap => {
     }
 
     render() {
-      const { theme } = this.context;
+      const { theme = themeShape } = this.context;
       // We are rendering <ComponentToWrap>
       // with an added `theme` prop
       return <ComponentToWrap {...this.props} theme={theme} />;
