@@ -14,14 +14,17 @@ class Link extends PureComponent {
 
   render() {
     const { children, to, theme, style, ...otherProps } = this.props;
-    return (
-      <RouterLink
-        to={to}
-        className={`b-link ${otherProps.className}`}
-        children={children}
-        style={{ ...theme.link, ...style }}
-        {...otherProps}
-      />
+    const isExternal = /^https?:\/\//.test(to);
+    const linkProps = {
+      className: `${otherProps.className}`,
+      children: children,
+      style: { ...theme.link, ...style },
+      ...otherProps
+    };
+    return isExternal ? (
+      <a href={to} target="_blank" rel="noopener" {...linkProps} />
+    ) : (
+      <RouterLink to={to} {...linkProps} />
     );
   }
 }
