@@ -4,25 +4,21 @@ import PropTypes from 'prop-types';
 import { HEADER_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
 
-const getHeader = (props = {}) => HEADER_CONSTANTS.HEADER_ELEMENTS[props.type];
+const getHeader = type => HEADER_CONSTANTS.HEADER_ELEMENTS[type];
 
 class Header extends PureComponent {
   static get propTypes() {
     return {
-      type: PropTypes.string,
-      children: PropTypes.node
+      type: PropTypes.string
     };
   }
 
   render() {
-    const { type = 'h1', theme, style, children, ...otherProps } = this.props;
-    const HeaderElement = getHeader({ type, children, otherProps });
+    const { type = 'h1', theme, style, ...otherProps } = this.props;
+    const HeaderElement = getHeader(type);
     return (
       <HeaderElement
-        className={`${type}`}
-        type={type}
-        children={children}
-        style={{ ...theme.header, ...style }}
+        style={{ ...theme.header[type], ...style }}
         {...otherProps}
       />
     );
