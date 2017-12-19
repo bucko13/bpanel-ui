@@ -48,3 +48,8 @@ typings/
 # Optional REPL history
 .node_repl_history
 
+# Build packages
+dist/*
+
+# Mac OS X
+.DS_Store
