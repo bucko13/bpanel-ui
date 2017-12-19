@@ -1,5 +1,5 @@
 {
-  "name": "bpanel-ux",
+  "name": "bpanel-ui",
   "version": "0.0.1",
   "description": "reusable React component library used in the bpanel GUI",
   "main": "dist/index.js",
@@ -15,9 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.purse.io:bcoin/bpanel-ux.git"
+    "url": "git@git.purse.io:bcoin/bpanel-ui.git"
   },
-  "keywords": ["react", "ux", "GUI", "bcoin", "bitcoin"],
+  "keywords": ["react", "ui", "GUI", "bcoin", "bitcoin"],
   "author": "bcoin",
   "license": "ISC",
   "dependencies": {
