@@ -15,8 +15,8 @@ const HEADER_ELEMENTS = {
   [HEADER_TAGS.h2]: props => <h2 {...props} />,
   [HEADER_TAGS.h3]: props => <h3 {...props} />,
   [HEADER_TAGS.h4]: props => <h4 {...props} />,
-  [HEADER_TAGS.h4]: props => <h5 {...props} />,
-  [HEADER_TAGS.h4]: props => <h6 {...props} />
+  [HEADER_TAGS.h5]: props => <h5 {...props} />,
+  [HEADER_TAGS.h6]: props => <h6 {...props} />
 };
 
 export default {
