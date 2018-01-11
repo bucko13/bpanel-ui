@@ -20117,10 +20117,11 @@ object-assign
                     );
 
                   var TextElement = getText(type);
+                  var textStyle = theme.text[type] || {};
                   return _react2.default.createElement(
                     TextElement,
                     (0, _extends3.default)(
-                      { style: (0, _extends3.default)({}, theme.text, style) },
+                      { style: (0, _extends3.default)({}, textStyle, style) },
                       otherProps
                     )
                   );
