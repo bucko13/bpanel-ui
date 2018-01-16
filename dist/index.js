@@ -20306,12 +20306,16 @@ object-assign
                 key: 'propTypes',
                 get: function get() {
                   return {
-                    theme: _propTypes2.default.object.isRequired,
-                    name: _propTypes2.default.string.isRequired,
-                    icon: _propTypes2.default.string,
-                    subItem: _propTypes2.default.bool,
                     children: _propTypes2.default.node,
-                    pathname: _propTypes2.default.string
+                    icon: _propTypes2.default.string,
+                    key: _propTypes2.default.oneOf([
+                      _propTypes2.default.number,
+                      _propTypes2.default.string
+                    ]),
+                    name: _propTypes2.default.string.isRequired,
+                    pathname: _propTypes2.default.string,
+                    subItem: _propTypes2.default.bool,
+                    theme: _propTypes2.default.object.isRequired
                   };
                 }
               }

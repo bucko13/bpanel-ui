@@ -19,12 +19,13 @@ class SidebarNavItem extends PureComponent {
 
   static get propTypes() {
     return {
-      theme: PropTypes.object.isRequired,
-      name: PropTypes.string.isRequired,
-      icon: PropTypes.string,
-      subItem: PropTypes.bool,
       children: PropTypes.node,
-      pathname: PropTypes.string
+      icon: PropTypes.string,
+      key: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+      name: PropTypes.string.isRequired,
+      pathname: PropTypes.string,
+      subItem: PropTypes.bool,
+      theme: PropTypes.object.isRequired
     };
   }
 
