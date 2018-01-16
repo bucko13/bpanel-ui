@@ -14,7 +14,10 @@ const themeShape = {
     // https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
     row: {}
   },
-  text: {}
+  text: {},
+  sidebar: {
+    item: {}
+  }
 };
 
 export default ComponentToWrap => {
