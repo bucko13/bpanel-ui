@@ -11,9 +11,15 @@ class Button extends PureComponent {
   }
 
   render() {
-    const { children, theme, style, ...otherProps } = this.props;
+    const {
+      type = 'primary',
+      children,
+      theme,
+      style,
+      ...otherProps
+    } = this.props;
     return (
-      <button style={{ ...theme.button, ...style }} {...otherProps}>
+      <button style={{ ...theme.button[type], ...style }} {...otherProps}>
         {children}
       </button>
     );

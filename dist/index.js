@@ -10300,19 +10300,25 @@ object-assign
                 key: 'render',
                 value: function render() {
                   var _props = this.props,
+                    _props$type = _props.type,
+                    type = _props$type === undefined ? 'primary' : _props$type,
                     children = _props.children,
                     theme = _props.theme,
                     style = _props.style,
                     otherProps = (0, _objectWithoutProperties3.default)(
                       _props,
-                      ['children', 'theme', 'style']
+                      ['type', 'children', 'theme', 'style']
                     );
 
                   return _react2.default.createElement(
                     'button',
                     (0, _extends3.default)(
                       {
-                        style: (0, _extends3.default)({}, theme.button, style)
+                        style: (0, _extends3.default)(
+                          {},
+                          theme.button[type],
+                          style
+                        )
                       },
                       otherProps
                     ),
