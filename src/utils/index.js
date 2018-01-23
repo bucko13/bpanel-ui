@@ -1,3 +1,5 @@
 import connectTheme from './connectTheme';
+import makeGutter from './makeGutter';
+import makeRem from './makeRem';
 
-export { connectTheme };
+export { connectTheme, makeGutter, makeRem };
