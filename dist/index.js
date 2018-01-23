@@ -14967,8 +14967,8 @@ object-assign
         };
 
         exports.default = function(ComponentToWrap) {
-          return (function(_PureComponent) {
-            (0, _inherits3.default)(ThemeComponent, _PureComponent);
+          return (function(_Component) {
+            (0, _inherits3.default)(ThemeComponent, _Component);
 
             function ThemeComponent() {
               (0, _classCallCheck3.default)(this, ThemeComponent);
@@ -15014,7 +15014,7 @@ object-assign
               ]
             );
             return ThemeComponent;
-          })(_react.PureComponent);
+          })(_react.Component);
         };
 
         /***/
