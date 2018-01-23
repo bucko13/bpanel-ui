@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const themeShape = {
@@ -21,7 +21,7 @@ const themeShape = {
 };
 
 export default ComponentToWrap => {
-  return class ThemeComponent extends PureComponent {
+  return class ThemeComponent extends Component {
     // Define what’s needed from the `context`
     // The theme is provided from the <ThemeProvider> in the bpanel repo
     static get contextTypes() {
