@@ -6,9 +6,16 @@ import {
   Column
 } from 'react-virtualized';
 
+import HeaderRow from './HeaderRow';
+import Text from '../Text';
 import { connectTheme } from '../../utils';
 
 import 'react-virtualized/styles.css';
+
+const cellRenderer = ({ cellData }) => <Text>{cellData}</Text>;
+const headerRenderer = ({ label }) => <Text>{label}</Text>;
+cellRenderer.propTypes = { cellData: PropTypes.string };
+headerRenderer.propTypes = { label: PropTypes.string };
 
 class Table extends PureComponent {
   static get propTypes() {
@@ -26,6 +33,9 @@ class Table extends PureComponent {
   render() {
     const {
       colProps,
+      style,
+      tableContainerStyles,
+      tableData,
       theme: {
         table: {
           container: containerStyle,
@@ -34,23 +44,39 @@ class Table extends PureComponent {
           row: rowStyle
         }
       },
-      style,
-      tableContainerStyles,
       ...tableProps
     } = this.props;
+
+    const _colProps =
+      colProps ||
+      Object.entries(tableData[0]).map(keyValuePair => ({
+        label: keyValuePair[0],
+        dataKey: keyValuePair[0],
+        width: 400,
+        flexGrow: 1,
+        cellRenderer,
+        headerRenderer
+      }));
+
     return (
       <div style={{ ...containerStyle, ...tableContainerStyles }}>
         <AutoSizer disableHeight>
           {({ width }) => (
             <VirtualizedTable
               width={width}
+              height={(tableData.length + 1) * 30}
+              headerHeight={30}
+              rowCount={tableData.length}
+              rowGetter={({ index }) => tableData[index]}
+              rowHeight={30}
               style={{ ...bodyStyle, ...style }}
               headerStyle={{ ...headerStyle, ...tableProps.headerStyle }}
               rowStyle={rowStyle || tableProps.rowStyle}
+              headerRowRenderer={props => <HeaderRow {...props} />}
               {...tableProps}
             >
-              {colProps.map(colProp => (
-                <Column key={`table-${colProps.dataKey}`} {...colProp} />
+              {_colProps.map(colProp => (
+                <Column key={`table-${colProp.dataKey}`} {...colProp} />
               ))}
             </VirtualizedTable>
           )}
