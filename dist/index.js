@@ -20689,15 +20689,16 @@ object-assign
 
         var _Table = __webpack_require__(208);
 
-        var _Table2 = _interopRequireDefault(_Table);
+        Object.defineProperty(exports, 'default', {
+          enumerable: true,
+          get: function get() {
+            return _interopRequireDefault(_Table).default;
+          }
+        });
 
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-
-        exports.default = {
-          Table: _Table2.default
-        };
 
         /***/
       },
