@@ -20691,19 +20691,12 @@ object-assign
 
         var _Table2 = _interopRequireDefault(_Table);
 
-        var _DefaultTableRowRenderer = __webpack_require__(283);
-
-        var _DefaultTableRowRenderer2 = _interopRequireDefault(
-          _DefaultTableRowRenderer
-        );
-
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
         exports.default = {
-          Table: _Table2.default,
-          DefaultTableRowRenderer: _DefaultTableRowRenderer2.default
+          Table: _Table2.default
         };
 
         /***/
@@ -58694,21 +58687,8 @@ object-assign
 
         /***/
       },
-      /* 283 */
-      /***/ function(module, exports, __webpack_require__) {
-        'use strict';
-
-        Object.defineProperty(exports, '__esModule', {
-          value: true
-        });
-
-        var _reactVirtualized = __webpack_require__(101);
-
-        exports.default = _reactVirtualized.defaultTableRowRenderer;
-
-        /***/
-      },
-      /* 284 */
+      ,
+      /* 283 */ /* 284 */
       /***/ function(module, exports, __webpack_require__) {
         'use strict';
 
