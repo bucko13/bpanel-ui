@@ -12,8 +12,10 @@ import { connectTheme } from '../../utils';
 
 import 'react-virtualized/styles.css';
 
-const cellRenderer = ({ cellData }) => <Text>{cellData.toString()}</Text>;
-const headerRenderer = ({ label }) => <Text>{label.toString()}</Text>;
+const cellRenderer = ({ cellData }) => (
+  <Text>{cellData && cellData.toString()}</Text>
+);
+const headerRenderer = ({ label }) => <Text>{label && label.toString()}</Text>;
 cellRenderer.propTypes = { cellData: PropTypes.string };
 headerRenderer.propTypes = { label: PropTypes.string };
 
