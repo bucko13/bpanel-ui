@@ -20774,11 +20774,19 @@ object-assign
 
         var cellRenderer = function cellRenderer(_ref) {
           var cellData = _ref.cellData;
-          return _react2.default.createElement(_Text2.default, null, cellData);
+          return _react2.default.createElement(
+            _Text2.default,
+            null,
+            cellData.toString()
+          );
         };
         var headerRenderer = function headerRenderer(_ref2) {
           var label = _ref2.label;
-          return _react2.default.createElement(_Text2.default, null, label);
+          return _react2.default.createElement(
+            _Text2.default,
+            null,
+            label.toString()
+          );
         };
         cellRenderer.propTypes = { cellData: _propTypes2.default.string };
         headerRenderer.propTypes = { label: _propTypes2.default.string };
