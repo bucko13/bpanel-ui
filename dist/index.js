@@ -20777,7 +20777,7 @@ object-assign
           return _react2.default.createElement(
             _Text2.default,
             null,
-            cellData.toString()
+            cellData && cellData.toString()
           );
         };
         var headerRenderer = function headerRenderer(_ref2) {
@@ -20785,7 +20785,7 @@ object-assign
           return _react2.default.createElement(
             _Text2.default,
             null,
-            label.toString()
+            label && label.toString()
           );
         };
         cellRenderer.propTypes = { cellData: _propTypes2.default.string };
