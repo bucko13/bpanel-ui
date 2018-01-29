@@ -10648,7 +10648,7 @@ object-assign
         Object.defineProperty(exports, '__esModule', {
           value: true
         });
-        exports.makeRem = exports.makeGutter = exports.connectTheme = exports.TEXT_CONSTANTS = exports.HEADER_CONSTANTS = exports.Text = exports.Table = exports.SidebarNavItem = exports.Link = exports.Header = exports.Button = undefined;
+        exports.utils = exports.constants = exports.Text = exports.Table = exports.SidebarNavItem = exports.Link = exports.Header = exports.Button = undefined;
 
         var _components = __webpack_require__(126);
 
@@ -10684,22 +10684,14 @@ object-assign
           SidebarNavItem = components.SidebarNavItem,
           Table = components.Table,
           Text = components.Text;
-        var HEADER_CONSTANTS = constants.HEADER_CONSTANTS,
-          TEXT_CONSTANTS = constants.TEXT_CONSTANTS;
-        var connectTheme = utils.connectTheme,
-          makeGutter = utils.makeGutter,
-          makeRem = utils.makeRem;
         exports.Button = Button;
         exports.Header = Header;
         exports.Link = Link;
         exports.SidebarNavItem = SidebarNavItem;
         exports.Table = Table;
         exports.Text = Text;
-        exports.HEADER_CONSTANTS = HEADER_CONSTANTS;
-        exports.TEXT_CONSTANTS = TEXT_CONSTANTS;
-        exports.connectTheme = connectTheme;
-        exports.makeGutter = makeGutter;
-        exports.makeRem = makeRem;
+        exports.constants = constants;
+        exports.utils = utils;
 
         /***/
       },

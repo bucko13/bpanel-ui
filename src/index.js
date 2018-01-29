@@ -3,8 +3,6 @@ import * as constants from './constants';
 import * as utils from './utils';
 
 const { Button, Header, Link, SidebarNavItem, Table, Text } = components;
-const { HEADER_CONSTANTS, TEXT_CONSTANTS } = constants;
-const { connectTheme, makeGutter, makeRem } = utils;
 
 export {
   /* Components */
@@ -15,10 +13,7 @@ export {
   Table,
   Text,
   /* Constants */
-  HEADER_CONSTANTS,
-  TEXT_CONSTANTS,
+  constants,
   /* Utils */
-  connectTheme,
-  makeGutter,
-  makeRem
+  utils
 };
