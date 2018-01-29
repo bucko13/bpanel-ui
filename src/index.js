@@ -2,4 +2,6 @@ import * as components from './components';
 import * as constants from './constants';
 import * as utils from './utils';
 
-export { components, constants, utils };
+const { Button, Header, Link, SidebarNavItem, Table, Text } = components;
+
+export { Button, Header, Link, SidebarNavItem, Table, Text, constants, utils };
