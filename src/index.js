@@ -5,6 +5,7 @@ import * as utils from './utils';
 const {
   Button,
   Header,
+  Input,
   Link,
   SidebarNavItem,
   Table,
@@ -16,6 +17,7 @@ export {
   /* Components */
   Button,
   Header,
+  Input,
   Link,
   SidebarNavItem,
   Table,
