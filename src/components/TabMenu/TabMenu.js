@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
 
 import Text from '../Text';
 import { connectTheme } from '../../utils';
@@ -34,11 +35,7 @@ class TabMenu extends PureComponent {
 
   renderHeader(header, index) {
     return (
-      <div
-        onClick={e => {
-          this.setState({ selectedIndex: index });
-        }}
-      >
+      <div onClick={() => this.setState({ selectedIndex: index })}>
         <Text>{header}</Text>
       </div>
     );
@@ -82,7 +79,10 @@ class TabMenu extends PureComponent {
               ? { ...headerTextActive, ...customHeaderTextActive }
               : { ...headerTextInactive, ...customHeaderTextInactive };
             return (
-              <div style={{ ...headerText, ...stateStyles }}>
+              <div
+                style={{ ...headerText, ...stateStyles }}
+                key={shortid.generate()}
+              >
                 {this.renderHeader(header, index)}
               </div>
             );
@@ -93,7 +93,14 @@ class TabMenu extends PureComponent {
           const stateStyles = selected
             ? { ...bodyActive, ...customBodyActive }
             : { ...bodyInactive, ...customBodyInactive };
-          return <div style={{ ...bodyContainer, ...stateStyles }}>{body}</div>;
+          return (
+            <div
+              style={{ ...bodyContainer, ...stateStyles }}
+              key={shortid.generate()}
+            >
+              {body}
+            </div>
+          );
         })}
       </div>
     );
