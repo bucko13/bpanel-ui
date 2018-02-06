@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import shortid from 'shortid';
 
 import Text from '../Text';
 import { connectTheme } from '../../utils';
@@ -81,14 +80,14 @@ class TabMenu extends PureComponent {
             return (
               <div
                 style={{ ...headerText, ...stateStyles }}
-                key={shortid.generate()}
+                key={`${header}-header-${index}`}
               >
                 {this.renderHeader(header, index)}
               </div>
             );
           })}
         </div>
-        {tabs.map(({ body }, index) => {
+        {tabs.map(({ body, header }, index) => {
           const selected = selectedIndex === index;
           const stateStyles = selected
             ? { ...bodyActive, ...customBodyActive }
@@ -96,7 +95,7 @@ class TabMenu extends PureComponent {
           return (
             <div
               style={{ ...bodyContainer, ...stateStyles }}
-              key={shortid.generate()}
+              key={`${header}-body-${index}`}
             >
               {body}
             </div>
