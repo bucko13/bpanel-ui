@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'aphrodite';
 
 import { connectTheme } from '../../utils';
 
@@ -19,7 +20,7 @@ class Button extends PureComponent {
       ...otherProps
     } = this.props;
     return (
-      <button style={{ ...theme.button[type], ...style }} {...otherProps}>
+      <button className={`${css(theme.button[type])} ${css(style)}`}>
         {children}
       </button>
     );

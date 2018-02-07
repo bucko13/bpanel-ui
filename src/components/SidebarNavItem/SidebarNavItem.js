@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { css } from 'aphrodite';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { connectTheme } from '../../utils';
 import Text from '../Text/Text';
@@ -9,14 +10,6 @@ const getActive = (name, pathname) =>
   pathname.includes(name) ? 'sidebar-item-active' : '';
 
 class SidebarNavItem extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      hovered: false
-    };
-    this.onToggleHover = this.onToggleHover.bind(this);
-  }
-
   static get propTypes() {
     return {
       children: PropTypes.node,
@@ -29,13 +22,11 @@ class SidebarNavItem extends PureComponent {
     };
   }
 
-  onToggleHover() {
-    this.setState({ hovered: !this.state.hovered });
-  }
-
   onGetActive(name, pathname) {
     const { theme } = this.props;
-    return pathname.includes(name) ? theme.sidebar.item.active : {};
+    return pathname.includes(name)
+      ? theme.sidebar.item._definition[':active']
+      : {};
   }
 
   render() {
@@ -47,25 +38,21 @@ class SidebarNavItem extends PureComponent {
       pathname,
       theme
     } = this.props;
-    const hoverStyle = this.state.hovered ? theme.sidebar.item.hover : {};
 
     return (
       <RouterLink
         to={name}
-        className={`nav-item sidebar-link ${subItem ? 'subItem' : ''}`}
-        style={theme.sidebar.link}
+        className={`${css(theme.sidebar.link)} nav-item sidebar-link ${subItem
+          ? 'subItem'
+          : ''}`}
         onMouseEnter={this.onToggleHover}
         onMouseLeave={this.onToggleHover}
       >
         <div
-          style={{
-            ...theme.sidebar.item,
-            ...hoverStyle,
-            ...this.onGetActive(name, pathname)
-          }}
-          className={`sidebar-item  ${getActive(name, pathname)}`}
+          style={this.onGetActive(name, pathname)}
+          className={`${css(theme.sidebar.item)} sidebar-item`}
         >
-          <i className={`fa fa-${icon}`} style={theme.sidebar.itemIcon} />
+          <i className={`${css(theme.sidebar.itemIcon)} fa fa-${icon}`} />
           <Text>{name}</Text>
           {children}
         </div>

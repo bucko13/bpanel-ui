@@ -30,6 +30,7 @@
   "author": "bcoin",
   "license": "ISC",
   "dependencies": {
+    "aphrodite": "^1.2.5",
     "keymirror": "^0.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'aphrodite';
 import {
   AutoSizer,
   Table as VirtualizedTable,
@@ -42,9 +43,9 @@ class Table extends PureComponent {
         table: {
           container: containerStyle,
           header: headerStyle,
-          body: bodyStyle,
-          row: rowStyle
-        }
+          body: bodyStyle
+        },
+        tableRowStyle
       },
       ...tableProps
     } = this.props;
@@ -61,7 +62,7 @@ class Table extends PureComponent {
       }));
 
     return (
-      <div style={{ ...containerStyle, ...tableContainerStyles }}>
+      <div className={`${css(containerStyle)} ${css(tableContainerStyles)}`}>
         <AutoSizer disableHeight>
           {({ width }) => (
             <VirtualizedTable
@@ -71,9 +72,9 @@ class Table extends PureComponent {
               rowCount={tableData.length}
               rowGetter={({ index }) => tableData[index]}
               rowHeight={30}
-              style={{ ...bodyStyle, ...style }}
+              className={`${css(bodyStyle)} ${css(style)}`}
               headerStyle={{ ...headerStyle, ...tableProps.headerStyle }}
-              rowStyle={rowStyle || tableProps.rowStyle}
+              rowStyle={tableRowStyle || tableProps.rowStyle}
               headerRowRenderer={props => <HeaderRow {...props} />}
               {...tableProps}
             >
