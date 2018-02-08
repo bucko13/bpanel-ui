@@ -4463,8 +4463,6 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _aphrodite = __webpack_require__(303);
-
 var _constants = __webpack_require__(66);
 
 var _utils = __webpack_require__(20);
@@ -4495,9 +4493,7 @@ var Text = function (_PureComponent) {
 
       var TextElement = getText(type);
       var textStyle = theme.text[type] || {};
-      return _react2.default.createElement(TextElement, (0, _extends3.default)({
-        className: (0, _aphrodite.css)(textStyle) + ' ' + (0, _aphrodite.css)(style)
-      }, otherProps));
+      return _react2.default.createElement(TextElement, (0, _extends3.default)({ className: textStyle + ' ' + style }, otherProps));
     }
   }], [{
     key: 'propTypes',
@@ -7780,8 +7776,6 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _aphrodite = __webpack_require__(303);
-
 var _utils = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -7807,7 +7801,7 @@ var Button = function (_PureComponent) {
 
       return _react2.default.createElement(
         'button',
-        { className: (0, _aphrodite.css)(theme.button[type]) + ' ' + (0, _aphrodite.css)(style) },
+        { className: theme.button[type] + ' ' + style },
         children
       );
     }
@@ -11189,8 +11183,6 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _aphrodite = __webpack_require__(303);
-
 var _constants = __webpack_require__(66);
 
 var _utils = __webpack_require__(20);
@@ -11221,7 +11213,7 @@ var Header = function (_PureComponent) {
 
       var HeaderElement = getHeader(type);
       return _react2.default.createElement(HeaderElement, (0, _extends3.default)({
-        className: (0, _aphrodite.css)(theme.header[type]) + ' ' + (0, _aphrodite.css)(style)
+        className: theme.header[type] + ' ' + style
       }, otherProps));
     }
   }], [{
@@ -11539,8 +11531,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(92);
 
-var _aphrodite = __webpack_require__(303);
-
 var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -11569,7 +11559,7 @@ var Link = function (_PureComponent) {
 
       var isExternal = /^https?:\/\//.test(to);
       var linkProps = (0, _extends3.default)({
-        className: (0, _aphrodite.css)(theme.link.default) + ' ' + (0, _aphrodite.css)(style) + ' ' + otherProps.className,
+        className: theme.link.default + ' ' + style + ' ' + otherProps.className,
         children: children
       }, otherProps);
       return isExternal ? _react2.default.createElement('a', (0, _extends3.default)({ href: to, target: '_blank', rel: 'noopener' }, linkProps)) : _react2.default.createElement(_reactRouterDom.Link, (0, _extends3.default)({ to: to }, linkProps));
@@ -14680,8 +14670,6 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _aphrodite = __webpack_require__(303);
-
 var _reactRouterDom = __webpack_require__(92);
 
 var _utils = __webpack_require__(20);
@@ -14709,7 +14697,7 @@ var SidebarNavItem = function (_PureComponent) {
     value: function onGetActive(name, pathname) {
       var theme = this.props.theme;
 
-      return pathname.includes(name) ? theme.sidebar.item._definition[':active'] : {};
+      return pathname.includes(name) ? theme.sidebar.itemActive : '';
     }
   }, {
     key: 'render',
@@ -14724,22 +14712,20 @@ var SidebarNavItem = function (_PureComponent) {
           pathname = _props.pathname,
           theme = _props.theme;
 
+      var activeStyle = this.onGetActive(name, pathname);
 
       return _react2.default.createElement(
         _reactRouterDom.Link,
         {
           to: name,
-          className: (0, _aphrodite.css)(theme.sidebar.link) + ' nav-item sidebar-link ' + (subItem ? 'subItem' : ''),
+          className: theme.sidebar.link + ' nav-item sidebar-link ' + (subItem ? 'subItem' : ''),
           onMouseEnter: this.onToggleHover,
           onMouseLeave: this.onToggleHover
         },
         _react2.default.createElement(
           'div',
-          {
-            style: this.onGetActive(name, pathname),
-            className: (0, _aphrodite.css)(theme.sidebar.item) + ' sidebar-item'
-          },
-          _react2.default.createElement('i', { className: (0, _aphrodite.css)(theme.sidebar.itemIcon) + ' fa fa-' + icon }),
+          { className: activeStyle + ' ' + theme.sidebar.item + ' sidebar-item' },
+          _react2.default.createElement('i', { className: theme.sidebar.itemIcon + ' fa fa-' + icon }),
           _react2.default.createElement(
             _Text2.default,
             null,
@@ -14841,8 +14827,6 @@ var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _aphrodite = __webpack_require__(303);
-
 var _reactVirtualized = __webpack_require__(215);
 
 var _HeaderRow = __webpack_require__(280);
@@ -14916,7 +14900,7 @@ var Table = function (_PureComponent) {
 
       return _react2.default.createElement(
         'div',
-        { className: (0, _aphrodite.css)(containerStyle) + ' ' + (0, _aphrodite.css)(tableContainerStyles) },
+        { className: containerStyle + ' ' + tableContainerStyles },
         _react2.default.createElement(
           _reactVirtualized.AutoSizer,
           { disableHeight: true },
@@ -14934,8 +14918,9 @@ var Table = function (_PureComponent) {
                   return tableData[index];
                 },
                 rowHeight: 30,
-                className: (0, _aphrodite.css)(bodyStyle) + ' ' + (0, _aphrodite.css)(style),
-                headerStyle: (0, _extends3.default)({}, headerStyle, tableProps.headerStyle),
+                className: bodyStyle + ' ' + style,
+                headerClassName: headerStyle,
+                headerStyle: tableProps.headerStyle,
                 rowStyle: tableRowStyle || tableProps.rowStyle,
                 headerRowRenderer: function headerRowRenderer(props) {
                   return _react2.default.createElement(_HeaderRow2.default, props);
@@ -39803,27 +39788,6 @@ var TabMenu = function (_PureComponent) {
 }(_react.PureComponent);
 
 exports.default = (0, _utils.connectTheme)(TabMenu);
-
-/***/ }),
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/inje/Documents/repos/bpanel-ui/node_modules/aphrodite/lib/index.js'");
 
 /***/ })
 /******/ ]);

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'aphrodite';
 
 import { TEXT_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
@@ -18,12 +17,7 @@ class Text extends PureComponent {
     const { type = 'span', theme, style, ...otherProps } = this.props;
     const TextElement = getText(type);
     const textStyle = theme.text[type] || {};
-    return (
-      <TextElement
-        className={`${css(textStyle)} ${css(style)}`}
-        {...otherProps}
-      />
-    );
+    return <TextElement className={`${textStyle} ${style}`} {...otherProps} />;
   }
 }
 

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'aphrodite';
 
 import { HEADER_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
@@ -19,7 +18,7 @@ class Header extends PureComponent {
     const HeaderElement = getHeader(type);
     return (
       <HeaderElement
-        className={`${css(theme.header[type])} ${css(style)}`}
+        className={`${theme.header[type]} ${style}`}
         {...otherProps}
       />
     );

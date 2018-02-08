@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { css } from 'aphrodite';
 import PropTypes from 'prop-types';
 
 import { connectTheme } from '../../utils';
@@ -17,9 +16,7 @@ class Link extends PureComponent {
     const { children, to, theme, style, ...otherProps } = this.props;
     const isExternal = /^https?:\/\//.test(to);
     const linkProps = {
-      className: `${css(theme.link.default)} ${css(
-        style
-      )} ${otherProps.className}`,
+      className: `${theme.link.default} ${style} ${otherProps.className}`,
       children: children,
       ...otherProps
     };

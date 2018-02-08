@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'aphrodite';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { connectTheme } from '../../utils';
@@ -24,9 +23,7 @@ class SidebarNavItem extends PureComponent {
 
   onGetActive(name, pathname) {
     const { theme } = this.props;
-    return pathname.includes(name)
-      ? theme.sidebar.item._definition[':active']
-      : {};
+    return pathname.includes(name) ? theme.sidebar.itemActive : '';
   }
 
   render() {
@@ -38,21 +35,19 @@ class SidebarNavItem extends PureComponent {
       pathname,
       theme
     } = this.props;
+    const activeStyle = this.onGetActive(name, pathname);
 
     return (
       <RouterLink
         to={name}
-        className={`${css(theme.sidebar.link)} nav-item sidebar-link ${subItem
+        className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
           ? 'subItem'
           : ''}`}
         onMouseEnter={this.onToggleHover}
         onMouseLeave={this.onToggleHover}
       >
-        <div
-          style={this.onGetActive(name, pathname)}
-          className={`${css(theme.sidebar.item)} sidebar-item`}
-        >
-          <i className={`${css(theme.sidebar.itemIcon)} fa fa-${icon}`} />
+        <div className={`${activeStyle} ${theme.sidebar.item} sidebar-item`}>
+          <i className={`${theme.sidebar.itemIcon} fa fa-${icon}`} />
           <Text>{name}</Text>
           {children}
         </div>
