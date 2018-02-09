@@ -71,16 +71,23 @@ class TabMenu extends PureComponent {
 
     return (
       <div>
-        <div style={{ ...headerContainer, ...customHeaderContainer }}>
+        <div className={headerContainer} style={customHeaderContainer}>
           {tabs.map(({ header }, index) => {
             const selected = selectedIndex === index;
             const stateStyles = selected
-              ? { ...headerTextActive, ...customHeaderTextActive }
-              : { ...headerTextInactive, ...customHeaderTextInactive };
+              ? {
+                  className: headerTextActive,
+                  customStyles: customHeaderTextActive
+                }
+              : {
+                  className: headerTextInactive,
+                  customStyles: customHeaderTextInactive
+                };
             return (
               <div
-                style={{ ...headerText, ...stateStyles }}
+                className={`${headerText} ${stateStyles.className}`}
                 key={`${header}-header-${index}`}
+                style={stateStyles.customStyles}
               >
                 {this.renderHeader(header, index)}
               </div>
@@ -90,12 +97,13 @@ class TabMenu extends PureComponent {
         {tabs.map(({ body, header }, index) => {
           const selected = selectedIndex === index;
           const stateStyles = selected
-            ? { ...bodyActive, ...customBodyActive }
-            : { ...bodyInactive, ...customBodyInactive };
+            ? { className: bodyActive, customStyles: customBodyActive }
+            : { className: bodyInactive, customStyles: customBodyInactive };
           return (
             <div
-              style={{ ...bodyContainer, ...stateStyles }}
+              className={`${bodyContainer} ${stateStyles.className}`}
               key={`${header}-body-${index}`}
+              style={stateStyles.customStyles}
             >
               {body}
             </div>

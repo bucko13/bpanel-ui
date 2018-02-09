@@ -32,19 +32,24 @@ class Table extends PureComponent {
     };
   }
 
+  static get defaultProps() {
+    return {
+      style: {
+        bodyStyle: {},
+        containerStyle: {},
+        headerStyle: {}
+      }
+    };
+  }
+
   render() {
     const {
       colProps,
-      style,
-      tableContainerStyles,
       tableData,
+      style: { containerStyle, headerStyle, bodyStyle },
       theme: {
-        table: {
-          container: containerStyle,
-          header: headerStyle,
-          body: bodyStyle,
-          row: rowStyle
-        }
+        table: { container: containerCss, header: headerCss, body: bodyCss },
+        tableRowStyle
       },
       ...tableProps
     } = this.props;
@@ -61,7 +66,7 @@ class Table extends PureComponent {
       }));
 
     return (
-      <div style={{ ...containerStyle, ...tableContainerStyles }}>
+      <div className={containerCss} style={containerStyle}>
         <AutoSizer disableHeight>
           {({ width }) => (
             <VirtualizedTable
@@ -71,9 +76,11 @@ class Table extends PureComponent {
               rowCount={tableData.length}
               rowGetter={({ index }) => tableData[index]}
               rowHeight={30}
-              style={{ ...bodyStyle, ...style }}
-              headerStyle={{ ...headerStyle, ...tableProps.headerStyle }}
-              rowStyle={rowStyle || tableProps.rowStyle}
+              className={bodyCss}
+              headerClassName={headerCss}
+              headerStyle={headerStyle}
+              rowStyle={tableRowStyle || tableProps.rowStyle}
+              style={bodyStyle}
               headerRowRenderer={props => <HeaderRow {...props} />}
               {...tableProps}
             >

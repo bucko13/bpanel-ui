@@ -18,7 +18,8 @@ class Header extends PureComponent {
     const HeaderElement = getHeader(type);
     return (
       <HeaderElement
-        style={{ ...theme.header[type], ...style }}
+        className={`${theme.header[type]}`}
+        style={style}
         {...otherProps}
       />
     );

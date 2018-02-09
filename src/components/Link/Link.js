@@ -16,9 +16,9 @@ class Link extends PureComponent {
     const { children, to, theme, style, ...otherProps } = this.props;
     const isExternal = /^https?:\/\//.test(to);
     const linkProps = {
-      className: `${otherProps.className}`,
+      className: `${theme.link.default} ${otherProps.className}`,
       children: children,
-      style: { ...theme.link, ...style },
+      style,
       ...otherProps
     };
     return isExternal ? (
