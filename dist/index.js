@@ -6062,7 +6062,7 @@ object-assign
                   return _react2.default.createElement(
                     TextElement,
                     (0, _extends3.default)(
-                      { className: textStyle + ' ' + style },
+                      { className: textStyle, style: style },
                       otherProps
                     )
                   );
@@ -10648,7 +10648,10 @@ object-assign
 
                   return _react2.default.createElement(
                     'button',
-                    { className: theme.button[type] + ' ' + style },
+                    {
+                      className: theme.button[type],
+                      style: style
+                    },
                     children
                   );
                 }
@@ -15281,7 +15284,8 @@ object-assign
                     HeaderElement,
                     (0, _extends3.default)(
                       {
-                        className: theme.header[type] + ' ' + style
+                        className: '' + theme.header[type],
+                        style: style
                       },
                       otherProps
                     )
@@ -15739,12 +15743,9 @@ object-assign
                   var linkProps = (0, _extends3.default)(
                     {
                       className:
-                        theme.link.default +
-                        ' ' +
-                        style +
-                        ' ' +
-                        otherProps.className,
-                      children: children
+                        theme.link.default + ' ' + otherProps.className,
+                      children: children,
+                      style: style
                     },
                     otherProps
                   );
@@ -20764,24 +20765,20 @@ object-assign
                 value: function render() {
                   var _props = this.props,
                     colProps = _props.colProps,
-                    style = _props.style,
-                    tableContainerStyles = _props.tableContainerStyles,
                     tableData = _props.tableData,
+                    _props$style = _props.style,
+                    containerStyle = _props$style.containerStyle,
+                    headerStyle = _props$style.headerStyle,
+                    bodyStyle = _props$style.bodyStyle,
                     _props$theme = _props.theme,
                     _props$theme$table = _props$theme.table,
-                    containerStyle = _props$theme$table.container,
-                    headerStyle = _props$theme$table.header,
-                    bodyStyle = _props$theme$table.body,
+                    containerCss = _props$theme$table.container,
+                    headerCss = _props$theme$table.header,
+                    bodyCss = _props$theme$table.body,
                     tableRowStyle = _props$theme.tableRowStyle,
                     tableProps = (0, _objectWithoutProperties3.default)(
                       _props,
-                      [
-                        'colProps',
-                        'style',
-                        'tableContainerStyles',
-                        'tableData',
-                        'theme'
-                      ]
+                      ['colProps', 'tableData', 'style', 'theme']
                     );
 
                   var _colProps =
@@ -20801,7 +20798,7 @@ object-assign
 
                   return _react2.default.createElement(
                     'div',
-                    { className: containerStyle + ' ' + tableContainerStyles },
+                    { className: containerCss, style: containerStyle },
                     _react2.default.createElement(
                       _reactVirtualized.AutoSizer,
                       { disableHeight: true },
@@ -20820,10 +20817,11 @@ object-assign
                                 return tableData[index];
                               },
                               rowHeight: 30,
-                              className: bodyStyle + ' ' + style,
-                              headerClassName: headerStyle,
-                              headerStyle: tableProps.headerStyle,
+                              className: bodyCss,
+                              headerClassName: headerCss,
+                              headerStyle: headerStyle,
                               rowStyle: tableRowStyle || tableProps.rowStyle,
+                              style: bodyStyle,
                               headerRowRenderer: function headerRowRenderer(
                                 props
                               ) {
@@ -20863,6 +20861,18 @@ object-assign
                         width: _propTypes2.default.number
                       })
                     )
+                  };
+                }
+              },
+              {
+                key: 'defaultProps',
+                get: function get() {
+                  return {
+                    style: {
+                      bodyStyle: {},
+                      containerStyle: {},
+                      headerStyle: {}
+                    }
                   };
                 }
               }
