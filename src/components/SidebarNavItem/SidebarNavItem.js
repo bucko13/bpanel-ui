@@ -35,7 +35,7 @@ class SidebarNavItem extends PureComponent {
       pathname,
       theme
     } = this.props;
-    const activeStyle = this.onGetActive(name, pathname);
+    const activeCss = this.onGetActive(name, pathname);
 
     return (
       <RouterLink
@@ -46,7 +46,7 @@ class SidebarNavItem extends PureComponent {
         onMouseEnter={this.onToggleHover}
         onMouseLeave={this.onToggleHover}
       >
-        <div className={`${activeStyle} ${theme.sidebar.item} sidebar-item`}>
+        <div className={`${activeCss} ${theme.sidebar.item} sidebar-item`}>
           <i className={`${theme.sidebar.itemIcon} fa fa-${icon}`} />
           <Text>{name}</Text>
           {children}
