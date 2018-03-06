@@ -7,21 +7,28 @@ import {
 } from 'react-virtualized';
 
 import HeaderRow from './HeaderRow';
+import rowRenderer from './rowRenderer';
 import Text from '../Text';
 import { connectTheme } from '../../utils';
 
 import 'react-virtualized/styles.css';
 
-const cellRenderer = ({ cellData }) => (
-  <Text>{cellData && cellData.toString()}</Text>
-);
-const headerRenderer = ({ label }) => <Text>{label && label.toString()}</Text>;
-cellRenderer.propTypes = { cellData: PropTypes.string };
-headerRenderer.propTypes = { label: PropTypes.string };
-
 class Table extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      /**
+       * openIndex tracks the row in the table that is open
+       * Its value is the index of the row in the table
+       */
+      openIndex: undefined
+    };
+    this.onRowClick = this.onRowClick.bind(this);
+  }
+
   static get propTypes() {
     return {
+      ExpandedComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
       colProps: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
@@ -34,6 +41,9 @@ class Table extends PureComponent {
 
   static get defaultProps() {
     return {
+      ExpandedComponent: () => {},
+      headerHeight: 30,
+      rowHeight: 30,
       style: {
         bodyStyle: {},
         containerStyle: {},
@@ -42,46 +52,104 @@ class Table extends PureComponent {
     };
   }
 
-  render() {
-    const {
-      colProps,
-      tableData,
-      style: { containerStyle, headerStyle, bodyStyle },
-      theme: {
-        table: { container: containerCss, header: headerCss, body: bodyCss },
-        tableRowStyle
-      },
-      ...tableProps
-    } = this.props;
+  /**
+   * getColProps sets the header(top row) data for the table.
+   */
 
-    const _colProps =
+  getColProps() {
+    const { colProps, tableData } = this.props;
+    return (
       colProps ||
       Object.entries(tableData[0]).map(keyValuePair => ({
         label: keyValuePair[0],
         dataKey: keyValuePair[0],
         width: 400,
         flexGrow: 1,
-        cellRenderer,
-        headerRenderer
-      }));
+        cellRenderer: ({ cellData }) => (
+          <Text>{cellData && cellData.toString()}</Text>
+        ),
+        headerRenderer: ({ label }) => <Text>{label && label.toString()}</Text>
+      }))
+    );
+  }
+
+  /**
+   * getTableHeight gets height of the table. Calculates the height of the table
+   * if a row is expanded.
+   */
+
+  getTableHeight(tableData, openIndex, openHeight) {
+    return (
+      (tableData.length + 1) * 30 +
+      (openIndex || openIndex === 0 ? openHeight : 0)
+    );
+  }
+
+  /**
+   * onRowClick handles an onClick event to expand a table row.
+   */
+
+  onRowClick({ index }) {
+    const { expandedHeight } = this.props;
+    const { openIndex } = this.state;
+    const selectedIndex =
+      expandedHeight && index === openIndex ? undefined : index;
+    this.setState({ openIndex: selectedIndex });
+  }
+
+  render() {
+    const {
+      tableData,
+      ExpandedComponent,
+      expandedHeight,
+      onRowClick,
+      headerHeight,
+      rowHeight,
+      rowStyle,
+      style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
+      theme: {
+        table: { container: containerCss, header: headerCss, body: bodyCss },
+        tableRowStyle,
+        expandedRow: expandedRowStyles
+      },
+      ...tableProps
+    } = this.props;
+    const { openIndex } = this.state;
+    const _colProps = this.getColProps();
+    const tableHeight = this.getTableHeight(
+      tableData,
+      openIndex,
+      expandedHeight
+    );
+    const rowRendererOptions = {
+      openIndex,
+      ExpandedComponent,
+      expandedHeight,
+      rowHeight,
+      expandedRowStyles,
+      tableData
+    };
+    const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
 
     return (
       <div className={containerCss} style={containerStyle}>
         <AutoSizer disableHeight>
           {({ width }) => (
             <VirtualizedTable
-              width={width}
-              height={(tableData.length + 1) * 30}
-              headerHeight={30}
+              className={bodyCss}
+              height={tableHeight}
+              containerStyle={innerContainerStyle || { overflow: 'visible' }}
+              headerClassName={headerCss}
+              headerHeight={headerHeight}
+              headerRowRenderer={props => <HeaderRow {...props} />}
+              headerStyle={headerStyle}
+              onRowClick={rowOnClick}
               rowCount={tableData.length}
               rowGetter={({ index }) => tableData[index]}
-              rowHeight={30}
-              className={bodyCss}
-              headerClassName={headerCss}
-              headerStyle={headerStyle}
-              rowStyle={tableRowStyle || tableProps.rowStyle}
-              style={bodyStyle}
-              headerRowRenderer={props => <HeaderRow {...props} />}
+              rowHeight={rowHeight}
+              rowRenderer={options => rowRenderer(options, rowRendererOptions)}
+              rowStyle={tableRowStyle || rowStyle}
+              width={width}
               {...tableProps}
             >
               {_colProps.map(colProp => (
