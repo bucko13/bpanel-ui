@@ -10519,7 +10519,7 @@ object-assign
 
         var _Table2 = _interopRequireDefault(_Table);
 
-        var _TabMenu = __webpack_require__(286);
+        var _TabMenu = __webpack_require__(287);
 
         var _TabMenu2 = _interopRequireDefault(_TabMenu);
 
@@ -20532,8 +20532,8 @@ object-assign
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
-        var getActive = function getActive(name, pathname) {
-          return pathname.includes(name) ? 'sidebar-item-active' : '';
+        var getActive = function getActive(name, pathName) {
+          return pathName.includes(name) ? 'sidebar-item-active' : '';
         };
 
         var SidebarNavItem = (function(_PureComponent) {
@@ -20554,10 +20554,10 @@ object-assign
             [
               {
                 key: 'onGetActive',
-                value: function onGetActive(name, pathname) {
+                value: function onGetActive(name, pathName) {
                   var theme = this.props.theme;
 
-                  return pathname.includes(name)
+                  return pathName.includes(name)
                     ? theme.sidebar.itemActive
                     : '';
                 }
@@ -20573,15 +20573,15 @@ object-assign
                     subItem =
                       _props$subItem === undefined ? false : _props$subItem,
                     children = _props.children,
-                    pathname = _props.pathname,
+                    pathName = _props.pathName,
                     theme = _props.theme;
 
-                  var activeCss = this.onGetActive(name, pathname);
+                  var activeCss = this.onGetActive(name, pathName);
 
                   return _react2.default.createElement(
                     _reactRouterDom.Link,
                     {
-                      to: name,
+                      to: pathName,
                       className:
                         theme.sidebar.link +
                         ' nav-item sidebar-link ' +
@@ -20617,7 +20617,7 @@ object-assign
                       _propTypes2.default.string
                     ]),
                     name: _propTypes2.default.string.isRequired,
-                    pathname: _propTypes2.default.string,
+                    pathName: _propTypes2.default.string,
                     subItem: _propTypes2.default.bool,
                     theme: _propTypes2.default.object.isRequired
                   };
@@ -20713,7 +20713,7 @@ object-assign
 
         var _HeaderRow2 = _interopRequireDefault(_HeaderRow);
 
-        var _rowRenderer2 = __webpack_require__(289);
+        var _rowRenderer2 = __webpack_require__(281);
 
         var _rowRenderer3 = _interopRequireDefault(_rowRenderer2);
 
@@ -20723,7 +20723,7 @@ object-assign
 
         var _utils = __webpack_require__(16);
 
-        __webpack_require__(281);
+        __webpack_require__(282);
 
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
@@ -58353,10 +58353,146 @@ object-assign
       },
       /* 281 */
       /***/ function(module, exports, __webpack_require__) {
+        'use strict';
+
+        Object.defineProperty(exports, '__esModule', {
+          value: true
+        });
+
+        var _extends2 = __webpack_require__(9);
+
+        var _extends3 = _interopRequireDefault(_extends2);
+
+        exports.default = defaultRowRenderer;
+
+        var _react = __webpack_require__(1);
+
+        var _react2 = _interopRequireDefault(_react);
+
+        function _interopRequireDefault(obj) {
+          return obj && obj.__esModule ? obj : { default: obj };
+        }
+
+        /**
+ * Default row renderer for Table.
+ */
+        function defaultRowRenderer(_ref, _ref2) {
+          var className = _ref.className,
+            columns = _ref.columns,
+            index = _ref.index,
+            key = _ref.key,
+            onRowClick = _ref.onRowClick,
+            onRowDoubleClick = _ref.onRowDoubleClick,
+            onRowMouseOut = _ref.onRowMouseOut,
+            onRowMouseOver = _ref.onRowMouseOver,
+            onRowRightClick = _ref.onRowRightClick,
+            rowData = _ref.rowData,
+            style = _ref.style;
+          var openIndex = _ref2.openIndex,
+            ExpandedComponent = _ref2.ExpandedComponent,
+            expandedHeight = _ref2.expandedHeight,
+            rowHeight = _ref2.rowHeight,
+            expandedRowStyles = _ref2.expandedRowStyles,
+            tableData = _ref2.tableData;
+
+          var a11yProps = {};
+          var expandedComponent = null;
+
+          if (
+            onRowClick ||
+            onRowDoubleClick ||
+            onRowMouseOut ||
+            onRowMouseOver ||
+            onRowRightClick
+          ) {
+            a11yProps['aria-label'] = 'row';
+            a11yProps.tabIndex = 0;
+
+            if (onRowClick)
+              a11yProps.onClick = function(event) {
+                return onRowClick({
+                  event: event,
+                  index: index,
+                  rowData: rowData
+                });
+              };
+
+            if (onRowDoubleClick)
+              a11yProps.onDoubleClick = function(event) {
+                return onRowDoubleClick({
+                  event: event,
+                  index: index,
+                  rowData: rowData
+                });
+              };
+
+            if (onRowMouseOut)
+              a11yProps.onMouseOut = function(event) {
+                return onRowMouseOut({
+                  event: event,
+                  index: index,
+                  rowData: rowData
+                });
+              };
+
+            if (onRowMouseOver)
+              a11yProps.onMouseOver = function(event) {
+                return onRowMouseOver({
+                  event: event,
+                  index: index,
+                  rowData: rowData
+                });
+              };
+
+            if (onRowRightClick)
+              a11yProps.onContextMenu = function(event) {
+                return onRowRightClick({
+                  event: event,
+                  index: index,
+                  rowData: rowData
+                });
+              };
+          }
+          if (index === openIndex) {
+            expandedComponent = _react2.default.createElement(
+              'div',
+              {
+                style: (0, _extends3.default)({}, style, {
+                  top: style.top + rowHeight,
+                  height: expandedHeight
+                })
+              },
+              _react2.default.createElement(ExpandedComponent, {
+                expandedData: tableData[openIndex]
+              })
+            );
+          } else if (index > openIndex) style.top = style.top + expandedHeight;
+
+          return _react2.default.createElement(
+            'div',
+            { key: key, style: {} },
+            ' ',
+            _react2.default.createElement(
+              'div',
+              (0, _extends3.default)({}, a11yProps, {
+                className: className,
+                role: 'row',
+                style: style
+              }),
+              columns
+            ),
+            expandedComponent
+          );
+        }
+
+        /***/
+      },
+      /* 282 */
+      /***/ function(module, exports, __webpack_require__) {
         // style-loader: Adds some css to the DOM by adding a <style> tag
 
         // load the styles
-        var content = __webpack_require__(282);
+        var content = __webpack_require__(283);
         if (typeof content === 'string') content = [[module.i, content, '']];
         // Prepare cssTransformation
         var transform;
@@ -58364,7 +58500,7 @@ object-assign
         var options = { hmr: true };
         options.transform = transform;
         // add the styles to the DOM
-        var update = __webpack_require__(284)(content, options);
+        var update = __webpack_require__(285)(content, options);
         if (content.locals) module.exports = content.locals;
         // Hot Module Replacement
         if (false) {
@@ -58388,9 +58524,9 @@ object-assign
 
         /***/
       },
-      /* 282 */
+      /* 283 */
       /***/ function(module, exports, __webpack_require__) {
-        exports = module.exports = __webpack_require__(283)(undefined);
+        exports = module.exports = __webpack_require__(284)(undefined);
         // imports
 
         // module
@@ -58404,7 +58540,7 @@ object-assign
 
         /***/
       },
-      /* 283 */
+      /* 284 */
       /***/ function(module, exports) {
         /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
@@ -58493,7 +58629,7 @@ object-assign
 
         /***/
       },
-      /* 284 */
+      /* 285 */
       /***/ function(module, exports, __webpack_require__) {
         /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
@@ -58548,7 +58684,7 @@ object-assign
         var singletonCounter = 0;
         var stylesInsertedAtTop = [];
 
-        var fixUrls = __webpack_require__(285);
+        var fixUrls = __webpack_require__(286);
 
         module.exports = function(list, options) {
           if (typeof DEBUG !== 'undefined' && DEBUG) {
@@ -58886,7 +59022,7 @@ object-assign
 
         /***/
       },
-      /* 285 */
+      /* 286 */
       /***/ function(module, exports) {
         /**
  * When source maps are enabled, `style-loader` uses a link element with a data-uri to
@@ -58991,7 +59127,7 @@ object-assign
 
         /***/
       },
-      /* 286 */
+      /* 287 */
       /***/ function(module, exports, __webpack_require__) {
         'use strict';
 
@@ -58999,7 +59135,7 @@ object-assign
           value: true
         });
 
-        var _TabMenu = __webpack_require__(287);
+        var _TabMenu = __webpack_require__(288);
 
         Object.defineProperty(exports, 'default', {
           enumerable: true,
@@ -59014,7 +59150,7 @@ object-assign
 
         /***/
       },
-      /* 287 */
+      /* 288 */
       /***/ function(module, exports, __webpack_require__) {
         'use strict';
 
@@ -59278,143 +59414,6 @@ object-assign
         })(_react.PureComponent);
 
         exports.default = (0, _utils.connectTheme)(TabMenu);
-
-        /***/
-      },
-      ,
-      /* 288 */ /* 289 */
-      /***/ function(module, exports, __webpack_require__) {
-        'use strict';
-
-        Object.defineProperty(exports, '__esModule', {
-          value: true
-        });
-
-        var _extends2 = __webpack_require__(9);
-
-        var _extends3 = _interopRequireDefault(_extends2);
-
-        exports.default = defaultRowRenderer;
-
-        var _react = __webpack_require__(1);
-
-        var _react2 = _interopRequireDefault(_react);
-
-        function _interopRequireDefault(obj) {
-          return obj && obj.__esModule ? obj : { default: obj };
-        }
-
-        /**
- * Default row renderer for Table.
- */
-        function defaultRowRenderer(_ref, _ref2) {
-          var className = _ref.className,
-            columns = _ref.columns,
-            index = _ref.index,
-            key = _ref.key,
-            onRowClick = _ref.onRowClick,
-            onRowDoubleClick = _ref.onRowDoubleClick,
-            onRowMouseOut = _ref.onRowMouseOut,
-            onRowMouseOver = _ref.onRowMouseOver,
-            onRowRightClick = _ref.onRowRightClick,
-            rowData = _ref.rowData,
-            style = _ref.style;
-          var openIndex = _ref2.openIndex,
-            ExpandedComponent = _ref2.ExpandedComponent,
-            expandedHeight = _ref2.expandedHeight,
-            rowHeight = _ref2.rowHeight,
-            expandedRowStyles = _ref2.expandedRowStyles,
-            tableData = _ref2.tableData;
-
-          var a11yProps = {};
-          var expandedComponent = null;
-
-          if (
-            onRowClick ||
-            onRowDoubleClick ||
-            onRowMouseOut ||
-            onRowMouseOver ||
-            onRowRightClick
-          ) {
-            a11yProps['aria-label'] = 'row';
-            a11yProps.tabIndex = 0;
-
-            if (onRowClick)
-              a11yProps.onClick = function(event) {
-                return onRowClick({
-                  event: event,
-                  index: index,
-                  rowData: rowData
-                });
-              };
-
-            if (onRowDoubleClick)
-              a11yProps.onDoubleClick = function(event) {
-                return onRowDoubleClick({
-                  event: event,
-                  index: index,
-                  rowData: rowData
-                });
-              };
-
-            if (onRowMouseOut)
-              a11yProps.onMouseOut = function(event) {
-                return onRowMouseOut({
-                  event: event,
-                  index: index,
-                  rowData: rowData
-                });
-              };
-
-            if (onRowMouseOver)
-              a11yProps.onMouseOver = function(event) {
-                return onRowMouseOver({
-                  event: event,
-                  index: index,
-                  rowData: rowData
-                });
-              };
-
-            if (onRowRightClick)
-              a11yProps.onContextMenu = function(event) {
-                return onRowRightClick({
-                  event: event,
-                  index: index,
-                  rowData: rowData
-                });
-              };
-          }
-          if (index === openIndex) {
-            expandedComponent = _react2.default.createElement(
-              'div',
-              {
-                style: (0, _extends3.default)({}, style, {
-                  top: style.top + rowHeight,
-                  height: expandedHeight
-                })
-              },
-              _react2.default.createElement(ExpandedComponent, {
-                expandedData: tableData[openIndex]
-              })
-            );
-          } else if (index > openIndex) style.top = style.top + expandedHeight;
-
-          return _react2.default.createElement(
-            'div',
-            { key: key, style: {} },
-            ' ',
-            _react2.default.createElement(
-              'div',
-              (0, _extends3.default)({}, a11yProps, {
-                className: className,
-                role: 'row',
-                style: style
-              }),
-              columns
-            ),
-            expandedComponent
-          );
-        }
 
         /***/
       }
