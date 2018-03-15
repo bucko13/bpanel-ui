@@ -5,8 +5,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { connectTheme } from '../../utils';
 import Text from '../Text/Text';
 
-const getActive = (name, pathName) =>
-  pathName.includes(name) ? 'sidebar-item-active' : '';
+const getActive = (name, pathname) =>
+  pathname.includes(name) ? 'sidebar-item-active' : '';
 
 class SidebarNavItem extends PureComponent {
   static get propTypes() {
@@ -15,15 +15,16 @@ class SidebarNavItem extends PureComponent {
       icon: PropTypes.string,
       key: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
       name: PropTypes.string.isRequired,
+      pathname: PropTypes.string,
       pathName: PropTypes.string,
       subItem: PropTypes.bool,
       theme: PropTypes.object.isRequired
     };
   }
 
-  onGetActive(name, pathName) {
+  onGetActive(name, pathname) {
     const { theme } = this.props;
-    return pathName.includes(name) ? theme.sidebar.itemActive : '';
+    return pathname.includes(name) ? theme.sidebar.itemActive : '';
   }
 
   render() {
@@ -32,10 +33,11 @@ class SidebarNavItem extends PureComponent {
       icon = 'cog',
       subItem = false,
       children,
-      pathName,
+      pathname,
+      pathName, // name to use as path for link
       theme
     } = this.props;
-    const activeCss = this.onGetActive(name, pathName);
+    const activeCss = this.onGetActive(name, pathname);
 
     return (
       <RouterLink

@@ -20532,8 +20532,8 @@ object-assign
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
-        var getActive = function getActive(name, pathName) {
-          return pathName.includes(name) ? 'sidebar-item-active' : '';
+        var getActive = function getActive(name, pathname) {
+          return pathname.includes(name) ? 'sidebar-item-active' : '';
         };
 
         var SidebarNavItem = (function(_PureComponent) {
@@ -20554,10 +20554,10 @@ object-assign
             [
               {
                 key: 'onGetActive',
-                value: function onGetActive(name, pathName) {
+                value: function onGetActive(name, pathname) {
                   var theme = this.props.theme;
 
-                  return pathName.includes(name)
+                  return pathname.includes(name)
                     ? theme.sidebar.itemActive
                     : '';
                 }
@@ -20573,10 +20573,11 @@ object-assign
                     subItem =
                       _props$subItem === undefined ? false : _props$subItem,
                     children = _props.children,
+                    pathname = _props.pathname,
                     pathName = _props.pathName,
                     theme = _props.theme;
 
-                  var activeCss = this.onGetActive(name, pathName);
+                  var activeCss = this.onGetActive(name, pathname);
 
                   return _react2.default.createElement(
                     _reactRouterDom.Link,
@@ -20617,6 +20618,7 @@ object-assign
                       _propTypes2.default.string
                     ]),
                     name: _propTypes2.default.string.isRequired,
+                    pathname: _propTypes2.default.string,
                     pathName: _propTypes2.default.string,
                     subItem: _propTypes2.default.bool,
                     theme: _propTypes2.default.object.isRequired
