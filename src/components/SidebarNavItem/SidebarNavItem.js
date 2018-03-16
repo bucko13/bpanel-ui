@@ -34,14 +34,14 @@ class SidebarNavItem extends PureComponent {
       subItem = false,
       children,
       pathname,
-      pathName, // name to use as path for link
+      pathName, // name from metadata to use as path for link
       theme
     } = this.props;
     const activeCss = this.onGetActive(name, pathname);
-
+    const path = pathName ? pathName : name;
     return (
       <RouterLink
-        to={pathName}
+        to={path}
         className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
           ? 'subItem'
           : ''}`}
