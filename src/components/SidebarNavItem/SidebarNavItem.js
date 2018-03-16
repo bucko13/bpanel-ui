@@ -30,6 +30,7 @@ class SidebarNavItem extends PureComponent {
   render() {
     const {
       name,
+      displayName,
       icon = 'cog',
       subItem = false,
       children,
@@ -50,7 +51,7 @@ class SidebarNavItem extends PureComponent {
       >
         <div className={`${activeCss} ${theme.sidebar.item} sidebar-item`}>
           <i className={`${theme.sidebar.itemIcon} fa fa-${icon}`} />
-          <Text>{name}</Text>
+          <Text>{displayName ? displayName : name}</Text>
           {children}
         </div>
       </RouterLink>
