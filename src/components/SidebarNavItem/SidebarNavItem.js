@@ -16,6 +16,7 @@ class SidebarNavItem extends PureComponent {
       key: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
       name: PropTypes.string.isRequired,
       pathname: PropTypes.string,
+      pathName: PropTypes.string,
       subItem: PropTypes.bool,
       theme: PropTypes.object.isRequired
     };
@@ -32,14 +33,15 @@ class SidebarNavItem extends PureComponent {
       icon = 'cog',
       subItem = false,
       children,
-      pathname,
+      pathname, // path from window.location object
+      pathName, // name from metadata to use as path for link
       theme
     } = this.props;
     const activeCss = this.onGetActive(name, pathname);
-
+    const path = pathName ? pathName : name;
     return (
       <RouterLink
-        to={name}
+        to={path}
         className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
           ? 'subItem'
           : ''}`}
