@@ -4,6 +4,7 @@ import * as utils from './utils';
 
 const {
   Button,
+  ExpandedDataRow,
   Header,
   Input,
   Link,
@@ -16,6 +17,7 @@ const {
 export {
   /* Components */
   Button,
+  ExpandedDataRow,
   Header,
   Input,
   Link,

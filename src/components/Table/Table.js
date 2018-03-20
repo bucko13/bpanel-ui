@@ -102,6 +102,7 @@ class Table extends PureComponent {
       tableData,
       ExpandedComponent,
       expandedHeight,
+      expandedData,
       onRowClick,
       headerHeight,
       rowHeight,
@@ -125,6 +126,7 @@ class Table extends PureComponent {
       openIndex,
       ExpandedComponent,
       expandedHeight,
+      expandedData,
       rowHeight,
       expandedRowStyles,
       tableData

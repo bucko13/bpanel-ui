@@ -23,6 +23,7 @@ export default function defaultRowRenderer(
     expandedHeight,
     rowHeight,
     expandedRowStyles,
+    expandedData,
     tableData
   }
 ) {
@@ -58,6 +59,7 @@ export default function defaultRowRenderer(
         onRowRightClick({ event, index, rowData });
   }
   if (index === openIndex) {
+    const data = expandedData ? expandedData : tableData;
     expandedComponent = (
       <div
         style={{
@@ -66,7 +68,7 @@ export default function defaultRowRenderer(
           height: expandedHeight
         }}
       >
-        <ExpandedComponent expandedData={tableData[openIndex]} />
+        <ExpandedComponent expandedData={data[openIndex]} />
       </div>
     );
   } else if (index > openIndex) style.top = style.top + expandedHeight;
