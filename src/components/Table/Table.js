@@ -35,7 +35,8 @@ class Table extends PureComponent {
           dataKey: PropTypes.string,
           width: PropTypes.number
         })
-      )
+      ),
+      colHeaders: PropTypes.arrayOf(PropTypes.string)
     };
   }
 
@@ -57,20 +58,25 @@ class Table extends PureComponent {
    */
 
   getColProps() {
-    const { colProps, tableData } = this.props;
-    return (
-      colProps ||
-      Object.entries(tableData[0]).map(keyValuePair => ({
-        label: keyValuePair[0],
-        dataKey: keyValuePair[0],
-        width: 400,
-        flexGrow: 1,
-        cellRenderer: ({ cellData }) => (
-          <Text>{cellData && cellData.toString()}</Text>
-        ),
-        headerRenderer: ({ label }) => <Text>{label && label.toString()}</Text>
-      }))
-    );
+    const { colProps, tableData, colHeaders } = this.props;
+    if (colProps) return colprops;
+
+    const headers = Array.isArray(colHeaders)
+      ? colHeaders
+      : Object.entries(tableData[0]).map(
+          header => (Array.isArray(header) ? header[0] : header)
+        );
+
+    return headers.map(header => ({
+      label: header,
+      dataKey: header,
+      width: 400,
+      flexGrow: 1,
+      cellRenderer: ({ cellData }) => (
+        <Text>{cellData && cellData.toString()}</Text>
+      ),
+      headerRenderer: ({ label }) => <Text>{label && label.toString()}</Text>
+    }));
   }
 
   /**
