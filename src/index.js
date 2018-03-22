@@ -5,19 +5,7 @@ import * as utils from './utils';
 const {
   Button,
   ExpandedDataRow,
-  Header,
-  Input,
-  Link,
-  SidebarNavItem,
-  Table,
-  TabMenu,
-  Text
-} = components;
-
-export {
-  /* Components */
-  Button,
-  ExpandedDataRow,
+  ErrorWrapper,
   Header,
   Input,
   Link,
@@ -25,6 +13,22 @@ export {
   Table,
   TabMenu,
   Text,
+  widgetCreator
+} = components;
+
+export {
+  /* Components */
+  Button,
+  ExpandedDataRow,
+  ErrorWrapper,
+  Header,
+  Input,
+  Link,
+  SidebarNavItem,
+  Table,
+  TabMenu,
+  Text,
+  widgetCreator,
   /* Constants */
   constants,
   /* Utils */
