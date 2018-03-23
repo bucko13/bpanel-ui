@@ -14,10 +14,22 @@ class Text extends PureComponent {
   }
 
   render() {
-    const { type = 'span', theme, style, ...otherProps } = this.props;
+    const {
+      type = 'span',
+      theme,
+      style,
+      className,
+      ...otherProps
+    } = this.props;
     const TextElement = getText(type);
     const textCss = theme.text[type] || '';
-    return <TextElement className={textCss} style={style} {...otherProps} />;
+    return (
+      <TextElement
+        className={`${className} ${textCss}`}
+        style={style}
+        {...otherProps}
+      />
+    );
   }
 }
 
