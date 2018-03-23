@@ -16,10 +16,15 @@ class Button extends PureComponent {
       children,
       theme,
       style,
+      className,
       ...otherProps
     } = this.props;
     return (
-      <button className={theme.button[type]} style={style} {...otherProps}>
+      <button
+        className={`${className} ${theme.button[type]}`}
+        style={style}
+        {...otherProps}
+      >
         {children}
       </button>
     );
