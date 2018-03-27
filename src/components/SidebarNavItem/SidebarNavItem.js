@@ -38,7 +38,8 @@ class SidebarNavItem extends PureComponent {
       pathName, // name from metadata to use as path for link
       theme
     } = this.props;
-    const activeCss = this.onGetActive(pathName, pathname);
+    const defaultPath = pathName ? pathName : name;
+    const activeCss = this.onGetActive(defaultPath, pathname);
     const path = pathName ? pathName : name;
     return (
       <RouterLink
