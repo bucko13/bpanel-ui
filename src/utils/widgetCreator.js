@@ -1,7 +1,7 @@
 import React from 'react';
-import ErrorWrapper from './ErrorWrapper';
+import errorWrapper from './errorWrapper';
 
 export default Component_ => (props = {}) => {
-  const Component = ErrorWrapper(Component_);
+  const Component = errorWrapper(Component_);
   return () => React.createElement(Component, props);
 };

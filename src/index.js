@@ -5,22 +5,27 @@ import * as utils from './utils';
 const {
   Button,
   ExpandedDataRow,
-  ErrorWrapper,
   Header,
   Input,
   Link,
   SidebarNavItem,
   Table,
   TabMenu,
-  Text,
-  widgetCreator
+  Text
 } = components;
+
+const {
+  connectTheme,
+  errorWrapper,
+  makeGutter,
+  makeRem,
+  widgetCreator
+} = utils;
 
 export {
   /* Components */
   Button,
   ExpandedDataRow,
-  ErrorWrapper,
   Header,
   Input,
   Link,
@@ -28,9 +33,13 @@ export {
   Table,
   TabMenu,
   Text,
-  widgetCreator,
   /* Constants */
   constants,
   /* Utils */
+  connectTheme,
+  makeRem,
+  makeGutter,
+  errorWrapper,
+  widgetCreator,
   utils
 };

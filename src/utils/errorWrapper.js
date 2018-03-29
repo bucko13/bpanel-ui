@@ -1,8 +1,8 @@
 import React from 'react';
-import Text from './Text';
+import Text from '../components/Text';
 
 // Useful HOC for catching errors in components
-function ErrorWrapper(Component_, name = '') {
+function errorWrapper(Component_, name = '') {
   return class ErrorComponent extends React.PureComponent {
     constructor(props) {
       super(props);
@@ -37,9 +37,4 @@ function ErrorWrapper(Component_, name = '') {
   };
 }
 
-export default ErrorWrapper;
-
-export const widgetCreator = Component_ => (props = {}) => {
-  const Component = ErrorWrapper(Component_);
-  return () => React.createElement(Component, props);
-};
+export default errorWrapper;
