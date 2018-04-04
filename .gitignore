@@ -52,3 +52,4 @@ typings/
 dist/
 # Mac OS X
 .DS_Store
+**/*/.DS_Store
