@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from '../components/Text';
-console.log('hello world, errorWrapper');
+
 // Useful HOC for catching errors in components
 function errorWrapper(Component_, name = '') {
   return class ErrorComponent extends React.PureComponent {

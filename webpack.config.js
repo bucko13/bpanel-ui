@@ -15,7 +15,7 @@ const WebpackConfig = {
   },
 
   externals: {
-    // Use external version of React
+    // List any peer dependencies here
     react: 'umd react',
     'react-dom': 'umd react-dom',
     'react-router-dom': 'umd react-router-dom'
