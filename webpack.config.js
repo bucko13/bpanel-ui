@@ -14,6 +14,13 @@ const WebpackConfig = {
     library: 'BpanelUx'
   },
 
+  externals: {
+    // List any peer dependencies here
+    react: 'umd react',
+    'react-dom': 'umd react-dom',
+    'react-router-dom': 'umd react-router-dom'
+  },
+
   module: {
     rules: [
       {
