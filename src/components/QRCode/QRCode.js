@@ -15,16 +15,21 @@ class QRCode extends PureComponent {
   static get propTypes() {
     return {
       text: PropTypes.string,
+      type: PropTypes.string,
+      className: PropTypes.string,
       containerStyle: PropTypes.object
     };
   }
   render() {
-    const { text, containerStyle } = this.props;
+    const { text, type = 'span', theme, style, className } = this.props;
+
+    const textCss = theme.text[type] || '';
+
     if (text) {
       const pngBuffer = qrImage.imageSync(text, { type: 'png', margin: 1 });
       const dataURI = `data:image/png;base64,${pngBuffer.toString('base64')}`;
       return (
-        <div style={containerStyle}>
+        <div style={style} className={`${className} ${textCss}`}>
           <img className="react-qr" src={dataURI} />
         </div>
       );
