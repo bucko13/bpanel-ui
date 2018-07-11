@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import qrImage from 'qr-image';
 import { connectTheme } from '../../utils';
@@ -8,7 +8,7 @@ import { connectTheme } from '../../utils';
 * https://github.com/jprichardson/react-qr
 * */
 
-class QRCode extends Component {
+class QRCode extends PureComponent {
   constructor(props) {
     super(props);
   }
