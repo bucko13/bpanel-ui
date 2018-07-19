@@ -24,7 +24,7 @@ class SidebarNavItem extends PureComponent {
 
   onGetActive(name, pathname) {
     const { theme } = this.props;
-    return pathname.includes(name) ? theme.sidebar.itemActive : '';
+    return pathname.slice(1) === name ? theme.sidebar.itemActive : '';
   }
 
   render() {
