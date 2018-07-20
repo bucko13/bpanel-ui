@@ -45,7 +45,7 @@ class SidebarNavItem extends PureComponent {
       <RouterLink
         to={path}
         className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
-          ? 'subItem'
+          ? theme.sidebar.subItem
           : ''}`}
         onMouseEnter={this.onToggleHover}
         onMouseLeave={this.onToggleHover}
