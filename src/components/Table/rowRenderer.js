@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Default row renderer for Table.
@@ -29,6 +31,7 @@ export default function defaultRowRenderer(
 ) {
   const a11yProps = {};
   let expandedComponent = null;
+  let glyph; // up or down arrow glyph, indicates expanding row
 
   if (
     onRowClick ||
@@ -59,6 +62,8 @@ export default function defaultRowRenderer(
         onRowRightClick({ event, index, rowData });
   }
   if (index === openIndex) {
+    // current row is selected
+    glyph = faChevronUp;
     const data = expandedData ? expandedData : tableData;
     expandedComponent = (
       <div
@@ -71,7 +76,22 @@ export default function defaultRowRenderer(
         <ExpandedComponent expandedData={data[openIndex]} />
       </div>
     );
-  } else if (index > openIndex) style.top = style.top + expandedHeight;
+  } else if (index > openIndex) {
+    style.top = style.top + expandedHeight;
+  }
+
+  // glyph hasn't been set, this isn't a selected row
+  if (glyph === undefined) glyph = faChevronDown;
+
+  // assume column can expand if expandedData is truthy
+  let expandVisualAid;
+  if (!!expandedData) {
+    expandVisualAid = (
+      <div style={{ position: 'absolute', right: '1rem' }}>
+        <FontAwesomeIcon icon={glyph} />
+      </div>
+    );
+  }
 
   return (
     <div key={key} style={{}}>
@@ -79,6 +99,7 @@ export default function defaultRowRenderer(
       {/* Empty style object added to remove react-virtualized warning */}
       <div {...a11yProps} className={className} role="row" style={style}>
         {columns}
+        {expandVisualAid}
       </div>
       {expandedComponent}
     </div>
