@@ -1,6 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+
+import 'font-awesome/css/font-awesome.min.css';
 
 /**
  * Default row renderer for Table.
@@ -62,8 +62,7 @@ export default function defaultRowRenderer(
         onRowRightClick({ event, index, rowData });
   }
   if (index === openIndex) {
-    // current row is selected
-    glyph = faChevronUp;
+    glyph = 'fa-chevron-up';
     const data = expandedData ? expandedData : tableData;
     expandedComponent = (
       <div
@@ -81,14 +80,14 @@ export default function defaultRowRenderer(
   }
 
   // glyph hasn't been set, this isn't a selected row
-  if (glyph === undefined) glyph = faChevronDown;
+  if (glyph === undefined) glyph = 'fa-chevron-down';
 
   // assume column can expand if expandedData is truthy
   let expandVisualAid;
   if (!!expandedData) {
     expandVisualAid = (
       <div style={{ position: 'absolute', right: '1rem' }}>
-        <FontAwesomeIcon icon={glyph} />
+        <i className={`fa ${glyph}`} />
       </div>
     );
   }
