@@ -18,7 +18,13 @@ class SidebarNavItem extends PureComponent {
       pathname: PropTypes.string,
       pathName: PropTypes.string,
       subItem: PropTypes.bool,
-      theme: PropTypes.object.isRequired
+      theme: PropTypes.object.isRequired,
+      match: PropTypes.shape({
+        isExact: PropTypes.bool,
+        path: PropTypes.string,
+        url: PropTypes.string,
+        params: PropTypes.object
+      })
     };
   }
 
@@ -36,14 +42,15 @@ class SidebarNavItem extends PureComponent {
       children,
       pathname, // path from window.location object
       pathName, // name from metadata to use as path for link
-      theme
+      theme,
+      match = { url: '/' } // comes from React Router
     } = this.props;
     const defaultPath = pathName ? pathName : name;
     const activeCss = this.onGetActive(defaultPath, pathname);
     const path = pathName ? pathName : name;
     return (
       <RouterLink
-        to={path}
+        to={`${match.url}${path}`}
         className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
           ? theme.sidebar.subItem
           : ''}`}
