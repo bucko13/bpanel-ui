@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
 
+import Link from '../Link/Link';
 import { connectTheme } from '../../utils';
 import Text from '../Text/Text';
 
@@ -24,7 +24,7 @@ class SidebarNavItem extends PureComponent {
 
   onGetActive(name, pathname) {
     const { theme } = this.props;
-    return pathname.slice(1) === name ? theme.sidebar.itemActive : '';
+    return pathname === name ? theme.sidebar.itemActive : '';
   }
 
   render() {
@@ -42,7 +42,7 @@ class SidebarNavItem extends PureComponent {
     const activeCss = this.onGetActive(defaultPath, pathname);
     const path = pathName ? pathName : name;
     return (
-      <RouterLink
+      <Link
         to={path}
         className={`${theme.sidebar.link} nav-item sidebar-link ${subItem
           ? theme.sidebar.subItem
@@ -55,7 +55,7 @@ class SidebarNavItem extends PureComponent {
           <Text>{displayName ? displayName : name}</Text>
           {children}
         </div>
-      </RouterLink>
+      </Link>
     );
   }
 }
