@@ -8,12 +8,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import { connectTheme } from '../../utils';
-import { map } from 'underscore';
+import { map } from 'lodash';
 
 const cache = new CellMeasurerCache({
   defaultWidth: 600,
   minWidth: 100,
-  fixedHeight: true
+  fixedHeight: true,
 });
 
 class ExpandedDataRow extends PureComponent {
@@ -23,14 +23,14 @@ class ExpandedDataRow extends PureComponent {
         PropTypes.shape({
           label: PropTypes.string,
           dataKey: PropTypes.string,
-          width: PropTypes.number
+          width: PropTypes.number,
         })
       ),
       expandedData: PropTypes.shape({
         mainData: PropTypes.object,
-        subData: PropTypes.object
+        subData: PropTypes.object,
       }).isRequired,
-      theme: PropTypes.object
+      theme: PropTypes.object,
     };
   }
 
@@ -39,8 +39,8 @@ class ExpandedDataRow extends PureComponent {
       style: {
         bodyStyle: {},
         containerStyle: {},
-        headerStyle: {}
-      }
+        headerStyle: {},
+      },
     };
   }
 
@@ -49,12 +49,12 @@ class ExpandedDataRow extends PureComponent {
     const data = {
       mainData: map(mainData, (value, key) => ({
         name: key,
-        value
+        value,
       })),
       subData: map(subData, (value, key) => ({
         name: key,
-        value
-      }))
+        value,
+      })),
     };
     return data;
   }
@@ -74,7 +74,7 @@ class ExpandedDataRow extends PureComponent {
             ...style,
             border:
               columnIndex === 1 ? '1px solid rgba(255, 255, 255, 0.2)' : null,
-            padding: '5px'
+            padding: '5px',
           }}
         >
           {gridData[rowIndex][columnIndex]}

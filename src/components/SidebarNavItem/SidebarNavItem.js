@@ -19,7 +19,7 @@ class SidebarNavItem extends PureComponent {
       id: PropTypes.string,
       pathName: PropTypes.string,
       subItem: PropTypes.bool,
-      theme: PropTypes.object.isRequired
+      theme: PropTypes.object.isRequired,
     };
   }
 
@@ -38,7 +38,7 @@ class SidebarNavItem extends PureComponent {
       children,
       pathname, // path from window.location object
       pathName, // name from metadata to use as path for link
-      theme
+      theme,
     } = this.props;
     const defaultPath = pathName ? pathName : name;
     const activeCss = this.onGetActive(defaultPath, pathname);
