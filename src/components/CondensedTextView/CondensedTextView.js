@@ -45,7 +45,7 @@ class CondensedTextView extends PureComponent {
         )}
 
         <div className={'col-sm-4'}>
-          {`${helpers.startEndEllipsis(bodyText, prefix, suffix)}`}
+          {`${helpers.condenseText(bodyText, prefix, suffix)}`}
         </div>
 
         {enableCopy && (
