@@ -26,7 +26,8 @@ export default function defaultRowRenderer(
     rowHeight,
     expandedRowStyles,
     expandedData,
-    tableData
+    tableData,
+    theme
   }
 ) {
   const a11yProps = {};
@@ -86,7 +87,7 @@ export default function defaultRowRenderer(
   let expandVisualAid;
   if (!!expandedData) {
     expandVisualAid = (
-      <div style={{ position: 'absolute', right: '1rem' }}>
+      <div className={theme.expandedRow.expandVisualAid}>
         <i className={`fa ${glyph}`} />
       </div>
     );

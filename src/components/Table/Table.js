@@ -114,6 +114,7 @@ class Table extends PureComponent {
       rowHeight,
       rowStyle,
       style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
+      theme,
       theme: {
         table: { container: containerCss, header: headerCss, body: bodyCss },
         tableRowStyle,
@@ -135,7 +136,8 @@ class Table extends PureComponent {
       expandedData,
       rowHeight,
       expandedRowStyles,
-      tableData
+      tableData,
+      theme
     };
     const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
 
