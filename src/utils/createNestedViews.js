@@ -24,7 +24,7 @@ function createNestedViews(childrenViews = [], Parent, NotFound) {
               const Child = child.component;
               return (
                 <Route
-                  path={`/${child.path}`}
+                  path={child.path}
                   render={props => <Child {...props} />}
                   key={index}
                 />
