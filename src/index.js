@@ -12,7 +12,7 @@ const {
   Table,
   TabMenu,
   Text,
-  QRCode
+  QRCode,
 } = components;
 
 const {
@@ -20,7 +20,8 @@ const {
   errorWrapper,
   makeGutter,
   makeRem,
-  widgetCreator
+  widgetCreator,
+  createNestedViews,
 } = utils;
 
 export {
@@ -43,5 +44,6 @@ export {
   makeGutter,
   errorWrapper,
   widgetCreator,
-  utils
+  createNestedViews,
+  utils,
 };
