@@ -31,7 +31,8 @@ class Dropdown extends PureComponent {
   }
 
   // <Select options /> shape is { value, label }
-  // if options array[0], assume proper shape
+  // if options array[0] isn't a string
+  // or number, assume proper shape
   // otherwise, map to { value: element, label: element }
   formatOptions(options = []) {
     // assume all elements same type
@@ -43,6 +44,7 @@ class Dropdown extends PureComponent {
   }
 
   // parse theme and style <Select />
+  // see https://react-select.com/styles for usage
   customStyles(theme) {
     const { themeVariables = {} } = theme;
     const { themeColors = {} } = themeVariables;
