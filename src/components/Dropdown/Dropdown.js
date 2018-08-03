@@ -5,61 +5,76 @@ import Select from 'react-select';
 import { connectTheme } from '../../utils';
 
 /*
- * See full API here:
+ * See full API for react-select here:
  * https://github.com/JedWatson/react-select/#usage
  */
 
-// options prop populates Select
-// onChange({ label, value }, { action, option }) => void
-
 class Dropdown extends PureComponent {
+  // options prop populates Select selection options
+  // onChange({ label, value }, { action, option }) => void
   static get propTypes() {
     return {
+      defaultValue: PropTypes.string,
       theme: PropTypes.object,
       style: PropTypes.object,
-      options: PropTypes.array,
-      onChange: PropTypes.func
+      options: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.arrayOf(
+          PropTypes.shape({
+            value: PropTypes.number,
+            label: PropTypes.shape,
+          })
+        ),
+      ]),
+      onChange: PropTypes.func,
     };
   }
 
-  // options shape is { value, label }
+  // <Select options /> shape is { value, label }
   // if options array[0], assume proper shape
   // otherwise, map to { value: element, label: element }
   formatOptions(options = []) {
     // assume all elements same type
     // as to not have to iterate over all of them
     const t = typeof options[0];
-    if (t === 'string' || t === 'number') {
+    if (t === 'string' || t === 'number')
       return options.map(el => ({ label: `${el}`, value: `${el}` }));
-    }
     return options;
   }
 
+  // parse theme and style <Select />
   customStyles(theme) {
     const { themeVariables = {} } = theme;
     const { themeColors = {} } = themeVariables;
 
     return {
-      control: styles => ({ ...styles, backgroundColor: themeColors.white }),
-      option: (styles, { isSelected }) => {
+      option: (styles, data) => {
+        const { isSelected, isFocused } = data;
+        let backgroundColor = themeColors.white;
+        let fontWeight;
+        if (isSelected) backgroundColor = themeColors.highlight2;
+        else if (isFocused) fontWeight = 'bold';
+
         return {
           ...styles,
+          ':active': themeColors.highlight2,
+          backgroundColor,
           color: themeColors.black,
-          backgroundColor: themeColors.white,
-          textColor: themeColors.black,
-          cursor: 'default'
+          cursor: 'pointer',
+          fontWeight,
         };
-      }
+      },
     };
   }
 
   render() {
-    const { theme = {}, options = [], onChange } = this.props;
+    const { theme = {}, options = [], onChange, defaultValue } = this.props;
 
     // TODO: cache options if large
     return (
       <div className={theme.dropdown.container}>
         <Select
+          defaultValue={defaultValue}
           options={this.formatOptions(options)}
           styles={this.customStyles(theme)}
           onChange={onChange}
