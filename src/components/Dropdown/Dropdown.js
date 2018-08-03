@@ -17,7 +17,8 @@ class Dropdown extends PureComponent {
     return {
       theme: PropTypes.object,
       style: PropTypes.object,
-      options: PropTypes.array
+      options: PropTypes.array,
+      onChange: PropTypes.func
     };
   }
 
@@ -26,6 +27,7 @@ class Dropdown extends PureComponent {
   // otherwise, map to { value: element, label: element }
   formatOptions(options = []) {
     // assume all elements same type
+    // as to not have to iterate over all of them
     const t = typeof options[0];
     if (t === 'string' || t === 'number') {
       return options.map(el => ({ label: `${el}`, value: `${el}` }));
@@ -38,12 +40,13 @@ class Dropdown extends PureComponent {
     const { themeColors = {} } = themeVariables;
 
     return {
-      control: styles => ({ ...styles, backgroundColor: 'white' }),
-      option: (styles, state) => {
+      control: styles => ({ ...styles, backgroundColor: themeColors.white }),
+      option: (styles, { isSelected }) => {
         return {
           ...styles,
-          color: 'black',
-          textColor: 'black',
+          color: themeColors.black,
+          backgroundColor: themeColors.white,
+          textColor: themeColors.black,
           cursor: 'default'
         };
       }
@@ -54,14 +57,14 @@ class Dropdown extends PureComponent {
     const { theme = {}, options = [], onChange } = this.props;
 
     // TODO: cache options if large
-    const _options = this.formatOptions(options);
-
     return (
-      <Select
-        options={_options}
-        styles={this.customStyles(theme)}
-        onChange={onChange}
-      />
+      <div className={theme.dropdown.container}>
+        <Select
+          options={this.formatOptions(options)}
+          styles={this.customStyles(theme)}
+          onChange={onChange}
+        />
+      </div>
     );
   }
 }
