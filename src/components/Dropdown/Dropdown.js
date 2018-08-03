@@ -48,12 +48,11 @@ class Dropdown extends PureComponent {
     const { themeColors = {} } = themeVariables;
 
     return {
-      option: (styles, data) => {
-        const { isSelected, isFocused } = data;
+      option: (styles, { isSelected, isFocused }) => {
         let backgroundColor = themeColors.white;
         let fontWeight;
         if (isSelected) backgroundColor = themeColors.highlight2;
-        else if (isFocused) fontWeight = 'bold';
+        if (isFocused) fontWeight = 'bold';
 
         return {
           ...styles,
