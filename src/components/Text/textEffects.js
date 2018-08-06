@@ -41,6 +41,7 @@ const CondensedText = ({
 
 CondensedText.propTypes = {
   children: PropTypes.string.isRequired,
+  condenseThreshold: PropTypes.number,
   enableCopyIcon: PropTypes.bool,
   prefix: PropTypes.number,
   suffix: PropTypes.number
