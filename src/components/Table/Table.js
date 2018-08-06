@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   AutoSizer,
   Table as VirtualizedTable,
-  Column
+  Column,
 } from 'react-virtualized';
 
 import HeaderRow from './HeaderRow';
@@ -21,7 +21,7 @@ class Table extends PureComponent {
        * openIndex tracks the row in the table that is open
        * Its value is the index of the row in the table
        */
-      openIndex: undefined
+      openIndex: undefined,
     };
     this.onRowClick = this.onRowClick.bind(this);
   }
@@ -33,10 +33,10 @@ class Table extends PureComponent {
         PropTypes.shape({
           label: PropTypes.string,
           dataKey: PropTypes.string,
-          width: PropTypes.number
+          width: PropTypes.number,
         })
       ),
-      colHeaders: PropTypes.arrayOf(PropTypes.string)
+      colHeaders: PropTypes.arrayOf(PropTypes.string),
     };
   }
 
@@ -48,8 +48,8 @@ class Table extends PureComponent {
       style: {
         bodyStyle: {},
         containerStyle: {},
-        headerStyle: {}
-      }
+        headerStyle: {},
+      },
     };
   }
 
@@ -75,7 +75,7 @@ class Table extends PureComponent {
       cellRenderer: ({ cellData }) => (
         <Text>{cellData && cellData.toString()}</Text>
       ),
-      headerRenderer: ({ label }) => <Text>{label && label.toString()}</Text>
+      headerRenderer: ({ label }) => <Text>{label && label.toString()}</Text>,
     }));
   }
 
@@ -114,13 +114,16 @@ class Table extends PureComponent {
       rowHeight,
       rowStyle,
       style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
-      theme: {
-        table: { container: containerCss, header: headerCss, body: bodyCss },
-        tableRowStyle,
-        expandedRow: expandedRowStyles
-      },
+      theme,
       ...tableProps
     } = this.props;
+
+    const {
+      table: { container: containerCss, header: headerCss, body: bodyCss },
+      tableRowStyle,
+      expandedRow: expandedRowStyles,
+    } = theme;
+
     const { openIndex } = this.state;
     const _colProps = this.getColProps();
     const tableHeight = this.getTableHeight(
@@ -135,7 +138,8 @@ class Table extends PureComponent {
       expandedData,
       rowHeight,
       expandedRowStyles,
-      tableData
+      tableData,
+      theme,
     };
     const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
 
