@@ -5,18 +5,18 @@ import keyMirror from 'keymirror';
 import { helpers } from '../../utils/';
 
 const TEXT_TAGS = keyMirror({
-  condensed: null
+  condensed: null,
 });
 
 const CondensedText = ({
   children,
   className,
-  condenseThreshold = 12,
+  condenseThreshold = 0,
   enableCopyIcon = false,
   prefix = 4,
   style,
   suffix = 4,
-  theme: { text: { iconActive, iconInactive }, glyphs: { copyIcon } }
+  theme: { text: { iconActive, iconInactive }, glyphs: { copyIcon } },
 }) => (
   <React.Fragment>
     <span
@@ -44,11 +44,11 @@ CondensedText.propTypes = {
   condenseThreshold: PropTypes.number,
   enableCopyIcon: PropTypes.bool,
   prefix: PropTypes.number,
-  suffix: PropTypes.number
+  suffix: PropTypes.number,
 };
 
 const TextEffects = {
-  [TEXT_TAGS.condensed]: CondensedText
+  [TEXT_TAGS.condensed]: CondensedText,
 };
 
 export default TextEffects;
