@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { TEXT_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
+import { TEXT_CONSTANTS } from '../../constants';
+import TextEffects from './textEffects';
 
-const getText = type => TEXT_CONSTANTS.TEXT_ELEMENTS[type];
+const getText = type =>
+  Object.assign(TEXT_CONSTANTS.TEXT_ELEMENTS, TextEffects)[type];
 
 class Text extends PureComponent {
   static get propTypes() {
