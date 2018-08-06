@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connectTheme } from '../../utils';
 import { TEXT_CONSTANTS } from '../../constants';
-import TextEffects from './textEffects';
+import TextEffects from './TextEffects';
 
 const getText = type =>
   Object.assign(TEXT_CONSTANTS.TEXT_ELEMENTS, TextEffects)[type];
@@ -11,7 +11,7 @@ const getText = type =>
 class Text extends PureComponent {
   static get propTypes() {
     return {
-      type: PropTypes.string
+      type: PropTypes.string,
     };
   }
 
