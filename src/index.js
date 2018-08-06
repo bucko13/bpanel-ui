@@ -4,7 +4,6 @@ import * as utils from './utils';
 
 const {
   Button,
-  CondensedTextView,
   ExpandedDataRow,
   Header,
   Input,
@@ -27,7 +26,6 @@ const {
 export {
   /* Components */
   Button,
-  CondensedTextView,
   ExpandedDataRow,
   Header,
   Input,
