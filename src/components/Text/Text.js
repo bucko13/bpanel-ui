@@ -14,15 +14,9 @@ class Text extends PureComponent {
   }
 
   render() {
-    const {
-      type = 'span',
-      theme,
-      style,
-      className,
-      ...otherProps
-    } = this.props;
+    const { className = '', style, type = 'span', ...otherProps } = this.props;
     const TextElement = getText(type);
-    const textCss = theme.text[type] || '';
+    const textCss = otherProps.theme.text[type] || '';
     return (
       <TextElement
         className={`${className} ${textCss}`}
