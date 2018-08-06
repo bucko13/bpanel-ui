@@ -11,11 +11,11 @@ const condenseText = (condenseThreshold, input, prefixLen, suffixLen) => {
     result = JSON.stringify(input);
   }
 
-  return resultLen >= condenseThreshold && prefixLen + suffixLen < resultLen
+  return resultLen > condenseThreshold && prefixLen + suffixLen < resultLen
     ? `${result.slice(0, prefixLen)}...${result.slice(-suffixLen)}`
     : result;
 };
 
 export default {
-  condenseText
+  condenseText,
 };
