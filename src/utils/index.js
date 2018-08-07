@@ -1,4 +1,5 @@
 export { default as connectTheme } from './connectTheme';
+export { default as helpers } from './helpers';
 export { default as makeGutter } from './makeGutter';
 export { default as makeRem } from './makeRem';
 export { default as errorWrapper } from './errorWrapper';

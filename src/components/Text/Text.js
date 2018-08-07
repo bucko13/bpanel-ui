@@ -1,28 +1,24 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { TEXT_CONSTANTS } from '../../constants';
 import { connectTheme } from '../../utils';
+import { TEXT_CONSTANTS } from '../../constants';
+import TextEffects from './TextEffects';
 
-const getText = type => TEXT_CONSTANTS.TEXT_ELEMENTS[type];
+const getText = type =>
+  Object.assign(TEXT_CONSTANTS.TEXT_ELEMENTS, TextEffects)[type];
 
 class Text extends PureComponent {
   static get propTypes() {
     return {
-      type: PropTypes.string
+      type: PropTypes.string,
     };
   }
 
   render() {
-    const {
-      type = 'span',
-      theme,
-      style,
-      className,
-      ...otherProps
-    } = this.props;
+    const { className = '', style, type = 'span', ...otherProps } = this.props;
     const TextElement = getText(type);
-    const textCss = theme.text[type] || '';
+    const textCss = otherProps.theme.text[type] || '';
     return (
       <TextElement
         className={`${className} ${textCss}`}
