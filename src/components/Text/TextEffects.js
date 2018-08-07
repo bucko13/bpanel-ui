@@ -28,7 +28,7 @@ const CondensedText = ({
       style={style}
       title={`${children}`}
     >
-      {helpers.condenseText(condenseThreshold, children, prefix, suffix)}
+      {helpers.condenseText(children, prefix, suffix, condenseThreshold)}
     </span>{' '}
     {enableCopyIcon && (
       <i
