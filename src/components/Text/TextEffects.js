@@ -12,27 +12,28 @@ const CondensedText = ({
   children,
   className,
   condenseThreshold = 0,
-  enableCopyIcon = false,
+  copyIcon = false,
   style,
   prefix = 4,
   suffix = 4,
-  theme: { text: { iconActive, iconInactive }, glyphs: { copyIcon } },
+  theme: { text: { iconActive, iconInactive }, glyphs },
 }) => (
   <React.Fragment>
+    {console.log(glyphs, 'glyphs')}
     <span
       className={`
-        ${enableCopyIcon ? iconActive : iconInactive}
+        ${copyIcon ? iconActive : iconInactive}
         ${className} bpanel-ui-text-condensed
       `}
-      onClick={() => !enableCopyIcon && helpers.onCopy(children)}
+      onClick={() => !copyIcon && helpers.onCopy(children)}
       style={style}
       title={`${children}`}
     >
       {helpers.condenseText(children, prefix, suffix, condenseThreshold)}
     </span>{' '}
-    {enableCopyIcon && (
+    {copyIcon && (
       <i
-        className={`fa fa-copy ${copyIcon}`}
+        className={`fa fa-copy ${glyphs.copyIcon}`}
         onClick={() => helpers.onCopy(children)}
       />
     )}
@@ -42,7 +43,7 @@ const CondensedText = ({
 CondensedText.propTypes = {
   children: PropTypes.string.isRequired,
   condenseThreshold: PropTypes.number,
-  enableCopyIcon: PropTypes.bool,
+  copyIcon: PropTypes.bool,
   prefix: PropTypes.number,
   suffix: PropTypes.number,
 };
