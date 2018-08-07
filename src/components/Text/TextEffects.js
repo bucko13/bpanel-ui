@@ -13,8 +13,8 @@ const CondensedText = ({
   className,
   condenseThreshold = 0,
   copyIcon = false,
-  style,
   prefix = 4,
+  style,
   suffix = 4,
   theme: { text: { iconActive, iconInactive }, glyphs },
 }) => (
