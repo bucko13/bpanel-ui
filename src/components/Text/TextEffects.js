@@ -16,6 +16,7 @@ const CondensedText = ({
   prefix = 4,
   style,
   suffix = 4,
+  style,
   theme: { text: { iconActive, iconInactive }, glyphs },
 }) => (
   <React.Fragment>
