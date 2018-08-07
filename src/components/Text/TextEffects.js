@@ -19,7 +19,6 @@ const CondensedText = ({
   theme: { text: { iconActive, iconInactive }, glyphs },
 }) => (
   <React.Fragment>
-    {console.log(glyphs, 'glyphs')}
     <span
       className={`
         ${copyIcon ? iconActive : iconInactive}
