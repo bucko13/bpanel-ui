@@ -8,6 +8,8 @@ const TEXT_TAGS = keyMirror({
   condensed: null,
 });
 
+const condensed = (text, threshold) => text.length > threshold;
+
 const CondensedText = ({
   children,
   className,
@@ -21,10 +23,16 @@ const CondensedText = ({
   <React.Fragment>
     <span
       className={`
-        ${copyIcon ? iconActive : iconInactive}
+        ${copyIcon
+          ? iconActive
+          : condensed(children, condenseThreshold) ? iconInactive : ''}
         ${className} bpanel-ui-text-condensed
       `}
-      onClick={() => !copyIcon && helpers.onCopy(children)}
+      onClick={() => {
+        !copyIcon && condensed(children, condenseThreshold)
+          ? helpers.onCopy(children)
+          : null;
+      }}
       style={style}
       title={`${children}`}
     >
