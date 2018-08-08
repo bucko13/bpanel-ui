@@ -12,7 +12,10 @@ const condenseText = (input, prefixLen, suffixLen, condenseThreshold = 0) => {
   }
 
   return resultLen > condenseThreshold && prefixLen + suffixLen < resultLen
-    ? `${result.slice(0, prefixLen)}...${result.slice(-suffixLen)}`
+    ? `${result.slice(0, prefixLen)}...${result.slice(
+        resultLen - suffixLen,
+        resultLen
+      )}`
     : result;
 };
 
