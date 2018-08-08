@@ -7,6 +7,7 @@ import SidebarNavItem from './SidebarNavItem';
 import { Table, ExpandedDataRow } from './Table';
 import TabMenu from './TabMenu';
 import Text from './Text';
+import TransactionTable from './TransactionTable';
 import QRCode from './QRCode';
 
 export {
@@ -19,6 +20,7 @@ export {
   SidebarNavItem,
   Table,
   TabMenu,
+  TransactionTable,
   Text,
-  QRCode
+  QRCode,
 };
