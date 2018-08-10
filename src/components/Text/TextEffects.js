@@ -8,6 +8,9 @@ const TEXT_TAGS = keyMirror({
   condensed: null,
 });
 
+/* indicate if text is condensed */
+const isCondensed = (text, threshold) => text.length > threshold;
+
 const CondensedText = ({
   children,
   className,
@@ -20,11 +23,19 @@ const CondensedText = ({
 }) => (
   <React.Fragment>
     <span
+      /* show copyIcon or show condensed text and cursor decorations */
       className={`
-        ${copyIcon ? iconActive : iconInactive}
+        ${copyIcon
+          ? iconActive
+          : isCondensed(children, condenseThreshold) ? iconInactive : ''}
         ${className} bpanel-ui-text-condensed
       `}
-      onClick={() => !copyIcon && helpers.onCopy(children)}
+      /* copy onClick only if icon is unavailable and text is condensed */
+      onClick={() => {
+        !copyIcon && isCondensed(children, condenseThreshold)
+          ? helpers.onCopy(children)
+          : null;
+      }}
       style={style}
       title={`${children}`}
     >
