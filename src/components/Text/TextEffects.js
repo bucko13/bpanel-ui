@@ -9,7 +9,7 @@ const TEXT_TAGS = keyMirror({
 });
 
 /* indicate if text is condensed */
-const condensed = (text, threshold) => text.length > threshold;
+const isCondensed = (text, threshold) => text.length > threshold;
 
 const CondensedText = ({
   children,
@@ -27,12 +27,12 @@ const CondensedText = ({
       className={`
         ${copyIcon
           ? iconActive
-          : condensed(children, condenseThreshold) ? iconInactive : ''}
+          : isCondensed(children, condenseThreshold) ? iconInactive : ''}
         ${className} bpanel-ui-text-condensed
       `}
       /* copy onClick only if icon is unavailable and text is condensed */
       onClick={() => {
-        !copyIcon && condensed(children, condenseThreshold)
+        !copyIcon && isCondensed(children, condenseThreshold)
           ? helpers.onCopy(children)
           : null;
       }}
