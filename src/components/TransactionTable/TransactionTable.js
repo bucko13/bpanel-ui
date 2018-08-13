@@ -35,18 +35,18 @@ class TransactionTable extends PureComponent {
         date: 'Date',
         uxtype: 'Send/Receive',
         wallet: 'Wallet',
+        accountLabel: 'Account',
         amount: 'Amount',
-        account: 'Account',
         confirmations: 'Confirmations',
-        recipient: 'Recipient',
+        addressLabel: 'Address',
       },
       expandHeight: 250,
     };
   }
 
+  // TODO: allow function in headerMap?
   formatTableData(transactions, wallet) {
     const txns = this.txnManager.parse(transactions, wallet);
-    // TODO: build expandedData from txns
     const { headerMap } = this.props;
 
     const tableInput = txns.map(tx => {
@@ -55,6 +55,8 @@ class TransactionTable extends PureComponent {
       for (let [key, val] of Object.entries(headerMap)) r[val] = tx[key];
       return r;
     });
+
+    // TODO: build expandedData from txns
     return tableInput;
   }
 
