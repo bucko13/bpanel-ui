@@ -4,6 +4,8 @@
   "description": "reusable React component library used in the bpanel GUI",
   "main": "dist/index.js",
   "scripts": {
+    "babel": "babel src -d dist",
+    "clean": "rm -rf dist/*.js",
     "watch": "cross-env NODE_ENV=development webpack -w",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build:production": "cross-env NODE_ENV=production webpack -p",
@@ -32,6 +34,7 @@
   "license": "ISC",
   "dependencies": {
     "@bpanel/bpanel-utils": "0.0.11",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "font-awesome": "^4.7.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.10",
@@ -47,6 +50,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
