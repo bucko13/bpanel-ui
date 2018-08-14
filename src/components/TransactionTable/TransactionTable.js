@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
-import { Table } from '../index';
+import { Table, ExpandedDataRow } from '../index';
 import { connectTheme } from '../../utils';
 
 import { TxnManager, TxnManagerOptions } from '@bpanel/bpanel-utils';
+import { pick } from 'lodash';
 
 import TransactionView from './TransactionView';
 
@@ -56,8 +57,16 @@ class TransactionTable extends PureComponent {
       return r;
     });
 
-    // TODO: build expandedData from txns
-    return tableInput;
+    // TODO: replace ExpandedDataRow with TransactionView
+    // { mainData, subData }
+    const expandedData = txns.map(tx => ({
+      mainData: pick(tx, ['hash']),
+      subData: pick(tx, ['height', 'isSegwit', 'tx', 'weight']),
+    }));
+
+    // or if we need a new component
+    return [tableInput, expandedData];
+    //return [tableInput, txns];
   }
 
   // TODO: cache result and return
@@ -71,31 +80,37 @@ class TransactionTable extends PureComponent {
   render() {
     const { transactions, wallet } = this.props;
 
-    const tableData = this.formatTableData(transactions, wallet);
+    const [tableData, expandedData] = this.formatTableData(
+      transactions,
+      wallet
+    );
 
     // TODO: only invoke if headerMap is different
     const headers = this.getHeaders();
 
     // TODO: handle onRowClick
+    // TODO: colHeaders more than just text?
     return (
       <div>
         <Table
           colHeaders={headers}
           tableData={tableData}
+          expandedHeight={this.props.expandHeight}
+          ExpandedComponent={ExpandedDataRow}
+          expandedData={expandedData}
           onRowClick={e => console.log(e)}
         />
       </div>
     );
   }
 }
+// TODO: implement this
+//ExpandedComponent={TransactionView}
 
 export default connectTheme(TransactionTable);
 
 /*
  * TODO: implement expanded row view
-  expandedHeight={this.expandHeight}
-  styles={styles.selectListStyle}
-  expandedData={null}
-  ExpandedComponent={TransactionView}
- *
+ * using TransactionView
+ * styles={styles.selectListStyle}
  */
