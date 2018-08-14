@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
-import { Table, ExpandedDataRow } from '../index';
+import { Table } from '../index';
 import { connectTheme } from '../../utils';
 
 import { TxnManager, TxnManagerOptions } from '@bpanel/bpanel-utils';
-import { pick } from 'lodash';
 
 import TransactionView from './TransactionView';
 
@@ -41,7 +40,7 @@ class TransactionTable extends PureComponent {
         confirmations: 'Confirmations',
         addressLabel: 'Address',
       },
-      expandHeight: 250,
+      expandHeight: 350,
     };
   }
 
@@ -57,16 +56,7 @@ class TransactionTable extends PureComponent {
       return r;
     });
 
-    // TODO: replace ExpandedDataRow with TransactionView
-    // { mainData, subData }
-    const expandedData = txns.map(tx => ({
-      mainData: pick(tx, ['hash']),
-      subData: pick(tx, ['height', 'isSegwit', 'tx', 'weight']),
-    }));
-
-    // or if we need a new component
-    return [tableInput, expandedData];
-    //return [tableInput, txns];
+    return [tableInput, txns];
   }
 
   // TODO: cache result and return
@@ -96,7 +86,7 @@ class TransactionTable extends PureComponent {
           colHeaders={headers}
           tableData={tableData}
           expandedHeight={this.props.expandHeight}
-          ExpandedComponent={ExpandedDataRow}
+          ExpandedComponent={TransactionView}
           expandedData={expandedData}
           onRowClick={e => console.log(e)}
         />
@@ -105,7 +95,6 @@ class TransactionTable extends PureComponent {
   }
 }
 // TODO: implement this
-//ExpandedComponent={TransactionView}
 
 export default connectTheme(TransactionTable);
 
