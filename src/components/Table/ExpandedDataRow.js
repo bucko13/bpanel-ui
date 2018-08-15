@@ -114,7 +114,7 @@ class ExpandedDataRow extends PureComponent {
                 {data.value}
               </div>
               <i
-                className={`fa fa-copy ${theme.expandedRow.copyIcon}`}
+                className={`fa fa-copy ${theme.glyphs.copyIcon}`}
                 onClick={() => this.onCopy(i)}
               />
             </div>
