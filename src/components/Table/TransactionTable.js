@@ -6,7 +6,7 @@ import { connectTheme } from '../../utils';
 
 import { TxnManager, TxnManagerOptions } from '@bpanel/bpanel-utils';
 
-import TransactionView from './TransactionView';
+import ExpandedTransactionRow from './ExpandedTransactionRow';
 
 class TransactionTable extends PureComponent {
   constructor() {
@@ -41,7 +41,7 @@ class TransactionTable extends PureComponent {
         addressLabel: 'Address',
       },
       expandHeight: 390,
-      ExpandedComponent: TransactionView,
+      ExpandedComponent: ExpandedTransactionRow,
     };
   }
 
@@ -63,7 +63,7 @@ class TransactionTable extends PureComponent {
 
   // TODO: cache result and return
   getHeaders() {
-    return Object.keys(this.props.headerMap);
+    return Object.values(this.props.headerMap);
   }
 
   render() {

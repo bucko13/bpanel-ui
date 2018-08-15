@@ -23,7 +23,8 @@ const BLOCK_EXPLORERS = {
 const NETWORKS = ['main', 'testnet'];
 const COINS = ['bitcoin', 'bitcoincash'];
 
-class TransactionView extends PureComponent {
+// NOTE: expecting TXUX.toJSON() as expandedData
+class ExpandedTransactionRow extends PureComponent {
   static get propTypes() {
     return {
       network: PropTypes.string,
@@ -191,4 +192,4 @@ class TransactionView extends PureComponent {
   }
 }
 
-export default connectTheme(TransactionView);
+export default connectTheme(ExpandedTransactionRow);
