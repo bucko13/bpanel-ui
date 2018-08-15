@@ -34,6 +34,20 @@ class TransactionView extends PureComponent {
     };
   }
 
+  /*
+   ** onCopy: Copies data inside of the respective data field.
+   */
+
+  onCopy(i) {
+    const data = this[`dataCol${i}`];
+    const textField = document.createElement('textarea');
+    textField.innerText = data.innerText;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  }
+
   // TODO: make this work
   // cointype - bitcoin, bitcoincash
   // network - mainnet, testnet
@@ -74,14 +88,26 @@ class TransactionView extends PureComponent {
       outputAmount,
     } = expandedData;
 
-    const { txTableRow } = theme;
+    const { txTableRow, glyphs } = theme;
 
     return (
       <div className={txTableRow.container}>
         <div className={txTableRow.thinRow}>
-          <Text type="p">
-            Tx Hash: <span className={txTableRow.borderItem}>{hash}</span>
-          </Text>
+          <div className={txTableRow.subThinRow}>
+            <Text type="p" className={txTableRow.subThinItem}>
+              Tx Hash:{' '}
+              <span
+                ref={dataCol => (this[`dataCol${hash}`] = dataCol)}
+                className={txTableRow.borderItem}
+              >
+                {hash}
+              </span>
+            </Text>
+            <i
+              className={`fa fa-copy ${txTableRow.subThinItem} ${glyphs.copyIcon}`}
+              onClick={() => this.onCopy(hash)}
+            />
+          </div>
         </div>
         <div className={txTableRow.thinRow}>
           <Text type="p">
