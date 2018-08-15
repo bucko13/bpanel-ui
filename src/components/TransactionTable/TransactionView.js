@@ -5,16 +5,19 @@ import { connectTheme } from '../../utils';
 import Text from '../Text';
 import Link from '../Link';
 
+// TODO: better set up data structures to
+// support many chains and pretty printing
+// of the names for the links
 const BLOCK_EXPLORERS = {
   'btc.com': {
-    bitcoinmain: 'https://btc.com/', // {txhash}
-    bitcoincashmain: 'https://bch.btc.com/',
+    bitcoinmain: 'https://btc.com', // /{txhash}
+    bitcoincashmain: 'https://bch.btc.com',
   },
   blocktrail: {
-    bitcoinmain: 'https://www.blocktrail.com/BTC/tx/',
-    bitcointestnet: 'https://www.blocktrail.com/tBTC/tx/', // tx/{txhash}
-    bitcoincashmain: 'https://www.blocktrail.com/BCC/tx/',
-    bitcoincashtestnet: 'https://www.blocktrail.com/tBCC/tx/',
+    bitcoinmain: 'https://www.blocktrail.com/BTC/tx',
+    bitcointestnet: 'https://www.blocktrail.com/tBTC/tx', // /tx/{txhash}
+    bitcoincashmain: 'https://www.blocktrail.com/BCC/tx',
+    bitcoincashtestnet: 'https://www.blocktrail.com/tBCC/tx',
   },
 };
 const NETWORKS = ['main', 'testnet'];
@@ -29,8 +32,8 @@ class TransactionView extends PureComponent {
   }
   static get defaultProps() {
     return {
-      network: 'main',
-      cointype: 'bitcoin',
+      network: null,
+      cointype: null,
     };
   }
 
@@ -48,27 +51,35 @@ class TransactionView extends PureComponent {
     textField.remove();
   }
 
-  // TODO: make this work
+  // TODO: fix datastructures, see comment above
+  // accepts values in NETWORKS and COINS
   // cointype - bitcoin, bitcoincash
   // network - mainnet, testnet
   maybeRenderExplorerLink(cointype, network, txhash) {
-    if (!(cointype in COINS)) return [];
-    if (!(network in NETWORKS)) return [];
+    if (!COINS.includes(cointype)) return [];
+    if (!NETWORKS.includes(network)) return [];
 
     const subkey = `${cointype}${network}`;
     const links = [];
 
     // build list of hyperlinks
-    for (let [key, val] of Object.entries(BLOCK_EXPLORERS)) {
+    // TODO: make easier to understand
+    for (let [key, val] of Object.entries(BLOCK_EXPLORERS))
       if (subkey in val) links.push(`${val[subkey]}/${txhash}`);
-    }
 
-    console.log('links:');
-    console.log(links);
-    return links.map(link => <Link to={link} />);
+    const { theme } = this.props;
+
+    return links.map((link, i) => {
+      return (
+        <Link className={theme.txTableRow.subThinItem} key={i} to={link}>
+          <Text>{`Explorer ${i}`}</Text>
+        </Link>
+      );
+    });
+
+    return links;
   }
 
-  // TODO: only view on website if testnet or mainnet
   render() {
     const { expandedData, network, cointype, theme } = this.props;
     const {
@@ -172,7 +183,9 @@ class TransactionView extends PureComponent {
             Weight: <span className={txTableRow.borderItem}>{weight}</span>
           </Text>
         </div>
-        {this.maybeRenderExplorerLink(cointype, network, hash)}
+        <div className={txTableRow.subThinItem}>
+          {this.maybeRenderExplorerLink(cointype, network, hash)}
+        </div>
       </div>
     );
   }

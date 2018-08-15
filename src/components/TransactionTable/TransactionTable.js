@@ -40,7 +40,8 @@ class TransactionTable extends PureComponent {
         confirmations: 'Confirmations',
         addressLabel: 'Address',
       },
-      expandHeight: 350,
+      expandHeight: 390,
+      ExpandedComponent: TransactionView,
     };
   }
 
@@ -78,15 +79,17 @@ class TransactionTable extends PureComponent {
     // TODO: only invoke if headerMap is different
     const headers = this.getHeaders();
 
-    // TODO: handle onRowClick
-    // TODO: colHeaders more than just text?
+    // TODO: can colHeaders be more than just text?
+    // TODO: make expandHeight slightly larger if
+    // rendering extra links
+    const { ExpandedComponent, expandHeight } = this.props;
     return (
       <div>
         <Table
           colHeaders={headers}
           tableData={tableData}
-          expandedHeight={this.props.expandHeight}
-          ExpandedComponent={TransactionView}
+          expandedHeight={expandHeight}
+          ExpandedComponent={ExpandedComponent}
           expandedData={expandedData}
           onRowClick={e => console.log(e)}
         />
@@ -94,12 +97,5 @@ class TransactionTable extends PureComponent {
     );
   }
 }
-// TODO: implement this
 
 export default connectTheme(TransactionTable);
-
-/*
- * TODO: implement expanded row view
- * using TransactionView
- * styles={styles.selectListStyle}
- */
