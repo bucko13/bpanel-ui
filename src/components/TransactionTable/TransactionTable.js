@@ -45,7 +45,8 @@ class TransactionTable extends PureComponent {
     };
   }
 
-  // TODO: allow function in headerMap?
+  // TODO: allow function in headerMap
+  // that can return a component?
   formatTableData(transactions, wallet) {
     const txns = this.txnManager.parse(transactions, wallet);
     const { headerMap } = this.props;
@@ -62,10 +63,7 @@ class TransactionTable extends PureComponent {
 
   // TODO: cache result and return
   getHeaders() {
-    const headers = Object.entries(this.props.headerMap).map(
-      ([key, val]) => val
-    );
-    return headers;
+    return Object.keys(this.props.headerMap);
   }
 
   render() {
