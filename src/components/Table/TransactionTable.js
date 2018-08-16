@@ -1,36 +1,66 @@
 import React, { PureComponent } from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
+import assert from 'bsert';
 import { Table } from '../index';
 import { connectTheme } from '../../utils';
 
-import { TxnManager, TxnManagerOptions } from '@bpanel/bpanel-utils';
-
+import { TxManager, TxManagerOptions } from '@bpanel/bpanel-utils';
 import ExpandedTransactionRow from './ExpandedTransactionRow';
 
+/*
+ * TransactionTable
+ *
+ * Wrapper around Table to display
+ * transaction related information
+ *
+ * TODO: better logic around setting custom
+ * TxManager options
+ */
 class TransactionTable extends PureComponent {
+  /*
+   * Create a TransactionTable
+   * Initialize a txManager with default options
+   * @constructor
+   *
+   */
   constructor() {
     super();
-    this.txnManager = TxnManager.fromOptions(TxnManagerOptions);
+    this.txManager = TxManager.fromOptions(TxManagerOptions);
 
     // TODO: use for caching purposes
     this._headers = null;
   }
 
+  /*
+   * Get proptypes
+   *
+   * @static
+   * @returns {Object}
+   */
   static get propTypes() {
     return {
+      TxManagerOptions: propTypes.object,
       transactions: propTypes.array,
       wallet: propTypes.string,
       headerMap: propTypes.object,
       expandHeight: propTypes.number, // pass along to Table
     };
   }
+
+  /*
+   * Get default props
+   * headerMap:
+   *   map of bpanel-utils.UXTX.toJSON output -> table header names
+   *
+   * @static
+   * @returns {Object}
+   */
   static get defaultProps() {
     return {
       // list of transactions from bcoin api
       transactions: [],
       wallet: null,
-      // map of bpanel-utils.UXTX.toJSON output -> table header names
       headerMap: {
         date: 'Date',
         uxtype: 'Send/Receive',
@@ -42,13 +72,39 @@ class TransactionTable extends PureComponent {
       },
       expandHeight: 390,
       ExpandedComponent: ExpandedTransactionRow,
+      TxManagerOptions: TxManagerOptions,
     };
   }
 
-  // TODO: allow function in headerMap
-  // that can return a component?
+  /*
+   * set TxManager to use
+   * useful for setting custom TxManager options
+   *
+   * @returns {void}
+   */
+  setTxManager(txManager) {
+    assert(txManager instanceof TxManager);
+    this.txManager = txManager;
+  }
+
+  /*
+   * Format table data from output of UXTX.toJSON
+   * Maps props.headerMap values that correspond to
+   * UXTX.toJSON values into an object with keys
+   * of the headerMap key
+   *
+   * This allows for arbitrarily selecting
+   * column headers
+   *
+   * @param {Object[]} transactions - list of transaction json
+   * @param {String} wallet - wallet the txs belong to
+   * @returns {Tuple[Object[], Object[]]}
+   *
+   * TODO: allow function in headerMap
+   * that can return a component?
+   */
   formatTableData(transactions, wallet) {
-    const txns = this.txnManager.parse(transactions, wallet);
+    const txns = this.txManager.parse(transactions, wallet);
     const { headerMap } = this.props;
 
     const tableInput = txns.map(tx => {
@@ -61,11 +117,21 @@ class TransactionTable extends PureComponent {
     return [tableInput, txns];
   }
 
-  // TODO: cache result and return
+  /*
+   * Get header values
+   * TODO: cache result and only
+   * compute if things changed
+   *
+   * @returns {String[]}
+   */
   getHeaders() {
     return Object.values(this.props.headerMap);
   }
 
+  /*
+   * Render
+   * @returns {JSX}
+   */
   render() {
     const { transactions, wallet } = this.props;
 
