@@ -56,7 +56,7 @@ class ExpandedTransactionRow extends PureComponent {
   // accepts values in NETWORKS and COINS
   // cointype - bitcoin, bitcoincash
   // network - mainnet, testnet
-  maybeRenderExplorerLink(cointype, network, txhash) {
+  conditionalExplorerLink(txhash, cointype, network) {
     if (!COINS.includes(cointype)) return [];
     if (!NETWORKS.includes(network)) return [];
 
@@ -185,7 +185,7 @@ class ExpandedTransactionRow extends PureComponent {
           </Text>
         </div>
         <div className={txTableRow.subThinItem}>
-          {this.maybeRenderExplorerLink(cointype, network, hash)}
+          {this.conditionalExplorerLink(hash, cointype, network)}
         </div>
       </div>
     );
