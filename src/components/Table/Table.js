@@ -141,6 +141,7 @@ class Table extends PureComponent {
       tableData,
       theme,
     };
+
     const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
 
     return (

@@ -6,7 +6,8 @@ import { Table } from '../index';
 import { connectTheme } from '../../utils';
 
 import { TxManager, TxManagerOptions } from '@bpanel/bpanel-utils';
-import ExpandedTransactionRow from './ExpandedTransactionRow';
+
+import ExpandedDataRow from './ExpandedDataRow';
 
 /*
  * TransactionTable
@@ -52,6 +53,9 @@ class TransactionTable extends PureComponent {
    * Get default props
    * headerMap:
    *   map of bpanel-utils.UXTX.toJSON output -> table header names
+   * expandedMap.mainData
+   * expandedMap.subData
+   *   maps from bpanel-utils UXTX.toJSON output -> expanded view data
    *
    * @static
    * @returns {Object}
@@ -70,9 +74,30 @@ class TransactionTable extends PureComponent {
         confirmations: 'Confirmations',
         addressLabel: 'Address',
       },
-      expandHeight: 390,
-      ExpandedComponent: ExpandedTransactionRow,
+      expandedMap: {
+        mainData: {
+          hash: 'Tx Hash',
+        },
+        subData: {
+          coinbaseLabel: 'Is Coinbase',
+          segwitLabel: 'Is Segwit',
+          weight: 'Weight',
+          inputAmount: 'Input Total',
+          outputAmount: 'Output Total',
+          block: 'Block Hash',
+          confirmations: 'Number of Confirmations',
+          fee: 'Fee',
+          rate: 'Fee/kB',
+          inputCount: 'Input Count',
+          outputCount: 'Output Count',
+          size: 'Size',
+          height: 'Block Height',
+        },
+      },
+      expandHeight: 520,
+      ExpandedComponent: ExpandedDataRow,
       TxManagerOptions: TxManagerOptions,
+      CustomFooterComponent: null,
     };
   }
 
@@ -105,16 +130,32 @@ class TransactionTable extends PureComponent {
    */
   formatTableData(transactions, wallet) {
     const txns = this.txManager.parse(transactions, wallet);
-    const { headerMap } = this.props;
+    const { headerMap, expandedMap } = this.props;
 
-    const tableInput = txns.map(tx => {
-      // map tx data to desired headers
-      const r = {};
-      for (let [key, val] of Object.entries(headerMap)) r[val] = tx[key];
-      return r;
-    });
+    // tableInput and expandedData are lists
+    // each index corresponds to a single data point
+    // tableInput renders the columns
+    // expandedData renders the dropdown
+    // expandedData mainData renders at the top
+    // expandedData subData renders at the bottom
+    // ugly but functional...
+    const { tableInput, expandedData } = txns.reduce(
+      (acc, tx) => {
+        let tmp = {};
+        for (let [key, val] of Object.entries(headerMap)) tmp[val] = tx[key];
+        acc.tableInput.push(tmp);
+        tmp = { mainData: {}, subData: {} };
+        for (let [key, val] of Object.entries(expandedMap.mainData))
+          tmp.mainData[val] = tx[key];
+        for (let [key, val] of Object.entries(expandedMap.subData))
+          tmp.subData[val] = tx[key];
+        acc.expandedData.push(tmp);
+        return acc;
+      },
+      { tableInput: [], expandedData: [] }
+    );
 
-    return [tableInput, txns];
+    return [tableInput, expandedData];
   }
 
   /*
@@ -133,7 +174,7 @@ class TransactionTable extends PureComponent {
    * @returns {JSX}
    */
   render() {
-    const { transactions, wallet } = this.props;
+    const { transactions, wallet, CustomFooterComponent } = this.props;
 
     const [tableData, expandedData] = this.formatTableData(
       transactions,
@@ -153,7 +194,12 @@ class TransactionTable extends PureComponent {
           colHeaders={headers}
           tableData={tableData}
           expandedHeight={expandHeight}
-          ExpandedComponent={ExpandedComponent}
+          ExpandedComponent={props => (
+            <ExpandedComponent
+              {...props}
+              CustomFooterComponent={CustomFooterComponent}
+            />
+          )}
           expandedData={expandedData}
           onRowClick={e => console.log(e)}
         />
