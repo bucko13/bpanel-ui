@@ -5,7 +5,7 @@ import assert from 'bsert';
 import { Table } from '../index';
 import { connectTheme } from '../../utils';
 
-import { TxManager, TxManagerOptions } from '@bpanel/bpanel-utils';
+import { TxManager, TxManagerOptions, UXTXOptions } from '@bpanel/bpanel-utils';
 
 import ExpandedDataRow from './ExpandedDataRow';
 
@@ -65,6 +65,7 @@ class TransactionTable extends PureComponent {
       // list of transactions from bcoin api
       transactions: [],
       wallet: null,
+      protocol: null,
       headerMap: {
         date: 'Date',
         uxtype: 'Send/Receive',
@@ -97,6 +98,7 @@ class TransactionTable extends PureComponent {
       expandHeight: 520,
       ExpandedComponent: ExpandedDataRow,
       TxManagerOptions: TxManagerOptions,
+      UXTXOptions: UXTXOptions,
     };
   }
 
@@ -128,8 +130,8 @@ class TransactionTable extends PureComponent {
    * TODO: allow function in headerMap
    * that can return a component?
    */
-  formatTableData(transactions, wallet) {
-    const txns = this.txManager.parse(transactions, wallet);
+  formatTableData(transactions, UXTXOptions) {
+    const txns = this.txManager.parse(transactions, UXTXOptions);
     const { headerMap, expandedMap } = this.props;
 
     // tableInput and expandedData are lists
@@ -174,11 +176,13 @@ class TransactionTable extends PureComponent {
    * @returns {JSX}
    */
   render() {
-    const { transactions, wallet } = this.props;
+    const { transactions, UXTXOptions, wallet, protocol } = this.props;
+    if (wallet) UXTXOptions.wallet = wallet;
+    if (protocol) UXTXOptions.protocol = protocol;
 
     const [tableData, expandedData] = this.formatTableData(
       transactions,
-      wallet
+      UXTXOptions
     );
 
     // TODO: only invoke if headerMap is different
