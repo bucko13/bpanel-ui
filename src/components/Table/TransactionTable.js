@@ -16,7 +16,7 @@ import ExpandedDataRow from './ExpandedDataRow';
  * transaction related information
  *
  * TODO: better logic around setting custom
- * TxManager options
+ * TxManager options at runtime with props
  */
 class TransactionTable extends PureComponent {
   /*
@@ -77,6 +77,7 @@ class TransactionTable extends PureComponent {
       expandedMap: {
         mainData: {
           hash: 'Tx Hash',
+          block: 'Block Hash',
         },
         subData: {
           coinbaseLabel: 'Is Coinbase',
@@ -84,7 +85,6 @@ class TransactionTable extends PureComponent {
           weight: 'Weight',
           inputAmount: 'Input Total',
           outputAmount: 'Output Total',
-          block: 'Block Hash',
           confirmations: 'Number of Confirmations',
           fee: 'Fee',
           rate: 'Fee/kB',
@@ -97,7 +97,6 @@ class TransactionTable extends PureComponent {
       expandHeight: 520,
       ExpandedComponent: ExpandedDataRow,
       TxManagerOptions: TxManagerOptions,
-      CustomFooterComponent: null,
     };
   }
 
@@ -105,9 +104,10 @@ class TransactionTable extends PureComponent {
    * set TxManager to use
    * useful for setting custom TxManager options
    *
+   * @static
    * @returns {void}
    */
-  setTxManager(txManager) {
+  static setTxManager(txManager) {
     assert(txManager instanceof TxManager);
     this.txManager = txManager;
   }
@@ -174,7 +174,7 @@ class TransactionTable extends PureComponent {
    * @returns {JSX}
    */
   render() {
-    const { transactions, wallet, CustomFooterComponent } = this.props;
+    const { transactions, wallet } = this.props;
 
     const [tableData, expandedData] = this.formatTableData(
       transactions,
@@ -187,7 +187,7 @@ class TransactionTable extends PureComponent {
     // TODO: can colHeaders be more than just text?
     // TODO: make expandHeight slightly larger if
     // rendering extra links
-    const { ExpandedComponent, expandHeight } = this.props;
+    const { ExpandedComponent, expandHeight, children } = this.props;
     return (
       <div>
         <Table
@@ -195,10 +195,7 @@ class TransactionTable extends PureComponent {
           tableData={tableData}
           expandedHeight={expandHeight}
           ExpandedComponent={props => (
-            <ExpandedComponent
-              {...props}
-              CustomFooterComponent={CustomFooterComponent}
-            />
+            <ExpandedComponent {...props}>{children}</ExpandedComponent>
           )}
           expandedData={expandedData}
           onRowClick={e => console.log(e)}
