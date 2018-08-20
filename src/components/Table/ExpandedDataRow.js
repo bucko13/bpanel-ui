@@ -31,10 +31,6 @@ class ExpandedDataRow extends PureComponent {
         subData: PropTypes.object,
       }).isRequired,
       theme: PropTypes.object,
-      CustomFooterComponent: PropTypes.oneOfType([
-        PropTypes.node,
-        PropTypes.func,
-      ]),
     };
   }
 
@@ -45,7 +41,6 @@ class ExpandedDataRow extends PureComponent {
         containerStyle: {},
         headerStyle: {},
       },
-      CustomFooterComponent: () => {},
     };
   }
 
@@ -103,7 +98,7 @@ class ExpandedDataRow extends PureComponent {
   }
 
   render() {
-    const { theme, CustomFooterComponent } = this.props;
+    const { theme, children } = this.props;
     const { mainData, subData } = this.formatExpandedData();
     return (
       <div className={theme.expandedRow.container}>
@@ -134,10 +129,8 @@ class ExpandedDataRow extends PureComponent {
             </div>
           ))}
         </div>
-        {/* Custom footer component */}
-        <div className={theme.expandedRow.subDataContainer}>
-          {CustomFooterComponent}
-        </div>
+        {/* render children components below */}
+        <div className={theme.expandedRow.subDataContainer}>{children}</div>
       </div>
     );
   }

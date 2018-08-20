@@ -115,6 +115,7 @@ class Table extends PureComponent {
       rowStyle,
       style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
       theme,
+      children,
       ...tableProps
     } = this.props;
 
@@ -140,6 +141,7 @@ class Table extends PureComponent {
       expandedRowStyles,
       tableData,
       theme,
+      children,
     };
 
     const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
