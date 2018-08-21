@@ -102,7 +102,7 @@ class ExpandedDataRow extends PureComponent {
   }
 
   render() {
-    const { theme, children } = this.props;
+    const { theme, children, expandedData } = this.props;
     const { mainData, subData } = this.formatExpandedData();
     return (
       <div className={theme.expandedRow.container}>
@@ -134,7 +134,11 @@ class ExpandedDataRow extends PureComponent {
           ))}
         </div>
         {/* render children components below */}
-        <div className={theme.expandedRow.subDataContainer}>{children}</div>
+        <div className={theme.expandedRow.subDataContainer}>
+          {React.Children.map(children, child =>
+            React.cloneElement(child, { expandedData })
+          )}
+        </div>
       </div>
     );
   }

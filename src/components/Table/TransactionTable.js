@@ -191,7 +191,7 @@ class TransactionTable extends PureComponent {
     // TODO: can colHeaders be more than just text?
     // TODO: make expandedHeight slightly larger if
     // rendering extra links
-    const { ExpandedComponent, expandedHeight, children } = this.props;
+    const { ExpandedComponent, expandedHeight } = this.props;
 
     return (
       <div>
@@ -199,9 +199,7 @@ class TransactionTable extends PureComponent {
           colHeaders={headers}
           tableData={tableData}
           expandedHeight={expandedHeight}
-          ExpandedComponent={props => (
-            <ExpandedComponent {...props}>{children}</ExpandedComponent>
-          )}
+          ExpandedComponent={props => <ExpandedComponent {...props} />}
           expandedData={expandedData}
           onRowClick={e => console.log(e)}
         />

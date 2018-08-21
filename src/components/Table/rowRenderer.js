@@ -28,7 +28,6 @@ export default function defaultRowRenderer(
     expandedData,
     tableData,
     theme,
-    children,
   }
 ) {
   const a11yProps = {};
@@ -74,11 +73,7 @@ export default function defaultRowRenderer(
           height: expandedHeight,
         }}
       >
-        <ExpandedComponent expandedData={data[openIndex]}>
-          {React.Children.map(children, child =>
-            React.cloneElement(child, { expandedData: data[openIndex] })
-          )}
-        </ExpandedComponent>
+        <ExpandedComponent expandedData={data[openIndex]} />
       </div>
     );
   } else if (index > openIndex) {
