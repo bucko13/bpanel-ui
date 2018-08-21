@@ -19,6 +19,10 @@ const cache = new CellMeasurerCache({
 class ExpandedDataRow extends PureComponent {
   static get propTypes() {
     return {
+      children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+      ]),
       colProps: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
