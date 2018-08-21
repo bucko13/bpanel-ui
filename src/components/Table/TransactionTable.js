@@ -41,11 +41,11 @@ class TransactionTable extends PureComponent {
    */
   static get propTypes() {
     return {
-      TxManagerOptions: propTypes.object,
-      transactions: propTypes.array,
+      TxManagerOptions: propTypes.object, // see TxManagerOptions
+      transactions: propTypes.array, // bcoin tx json
       wallet: propTypes.string,
-      headerMap: propTypes.object,
-      expandHeight: propTypes.number, // pass along to Table
+      headerMap: propTypes.object, // UXTX.toJSON -> table headers mapping
+      expandedHeight: propTypes.number, // pass along to Table
     };
   }
 
@@ -95,7 +95,7 @@ class TransactionTable extends PureComponent {
           height: 'Block Height',
         },
       },
-      expandHeight: 520,
+      expandedHeight: 420,
       ExpandedComponent: ExpandedDataRow,
       TxManagerOptions: TxManagerOptions,
       UXTXOptions: UXTXOptions,
@@ -189,15 +189,16 @@ class TransactionTable extends PureComponent {
     const headers = this.getHeaders();
 
     // TODO: can colHeaders be more than just text?
-    // TODO: make expandHeight slightly larger if
+    // TODO: make expandedHeight slightly larger if
     // rendering extra links
-    const { ExpandedComponent, expandHeight, children } = this.props;
+    const { ExpandedComponent, expandedHeight, children } = this.props;
+
     return (
       <div>
         <Table
           colHeaders={headers}
           tableData={tableData}
-          expandedHeight={expandHeight}
+          expandedHeight={expandedHeight}
           ExpandedComponent={props => (
             <ExpandedComponent {...props}>{children}</ExpandedComponent>
           )}
