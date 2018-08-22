@@ -21,6 +21,10 @@ const WebpackConfig = {
     'react-router-dom': 'umd react-router-dom',
   },
 
+  node: {
+    fs: 'empty',
+  },
+
   module: {
     rules: [
       {

@@ -17,7 +17,7 @@ export default function defaultRowRenderer(
     onRowMouseOver,
     onRowRightClick,
     rowData,
-    style
+    style,
   },
   {
     openIndex,
@@ -27,7 +27,7 @@ export default function defaultRowRenderer(
     expandedRowStyles,
     expandedData,
     tableData,
-    theme
+    theme,
   }
 ) {
   const a11yProps = {};
@@ -70,7 +70,7 @@ export default function defaultRowRenderer(
         style={{
           ...style,
           top: style.top + rowHeight,
-          height: expandedHeight
+          height: expandedHeight,
         }}
       >
         <ExpandedComponent expandedData={data[openIndex]} />

@@ -19,6 +19,10 @@ const cache = new CellMeasurerCache({
 class ExpandedDataRow extends PureComponent {
   static get propTypes() {
     return {
+      children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+      ]),
       colProps: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
@@ -98,7 +102,7 @@ class ExpandedDataRow extends PureComponent {
   }
 
   render() {
-    const { theme } = this.props;
+    const { theme, children, expandedData } = this.props;
     const { mainData, subData } = this.formatExpandedData();
     return (
       <div className={theme.expandedRow.container}>
@@ -114,7 +118,7 @@ class ExpandedDataRow extends PureComponent {
                 {data.value}
               </div>
               <i
-                className={`fa fa-copy ${theme.expandedRow.copyIcon}`}
+                className={`fa fa-copy ${theme.glyphs.copyIcon}`}
                 onClick={() => this.onCopy(i)}
               />
             </div>
@@ -128,6 +132,12 @@ class ExpandedDataRow extends PureComponent {
               <div className={theme.expandedRow.borderedCol}>{data.value}</div>
             </div>
           ))}
+        </div>
+        {/* render children components below */}
+        <div className={theme.expandedRow.subDataContainer}>
+          {React.Children.map(children, child =>
+            React.cloneElement(child, { expandedData })
+          )}
         </div>
       </div>
     );

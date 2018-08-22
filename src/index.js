@@ -12,6 +12,7 @@ const {
   SidebarNavItem,
   Table,
   TabMenu,
+  TransactionTable,
   Text,
   QRCode,
 } = components;
@@ -37,6 +38,7 @@ export {
   Table,
   TabMenu,
   Text,
+  TransactionTable,
   QRCode,
   /* Constants */
   constants,

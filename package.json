@@ -4,6 +4,8 @@
   "description": "reusable React component library used in the bpanel GUI",
   "main": "dist/index.js",
   "scripts": {
+    "babel": "babel src -d dist",
+    "clean": "rm -rf dist/*.js",
     "watch": "cross-env NODE_ENV=development webpack -w",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build:production": "cross-env NODE_ENV=production webpack -p",
@@ -31,13 +33,15 @@
   "author": "bcoin",
   "license": "ISC",
   "dependencies": {
+    "@bpanel/bpanel-utils": "0.0.11",
     "font-awesome": "^4.7.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.0",
     "react-qr": "0.0.2",
-    "react-virtualized": "^9.13.0",
-    "react-select": "^2.0.0"
+    "react-select": "^2.0.0",
+    "react-virtualized": "^9.13.0"
   },
   "peerDependencies": {
     "react": "^16.3.0",
@@ -45,10 +49,13 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
