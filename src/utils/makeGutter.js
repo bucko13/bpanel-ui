@@ -25,11 +25,11 @@ export default (
     gutterBottom =
       gutterBottom || ((bottom || bottom === 0) && makeRem(bottom));
   }
+  const styleObj = {};
+  if (gutterTop) styleObj[`${type}Top`] = gutterTop;
+  if (gutterRight) styleObj[`${type}Right`] = gutterRight;
+  if (gutterBottom) styleObj[`${type}Bottom`] = gutterBottom;
+  if (gutterLeft) styleObj[`${type}Left`] = gutterLeft;
 
-  return {
-    [`${type}Top`]: gutterTop,
-    [`${type}Right`]: gutterRight,
-    [`${type}Bottom`]: gutterBottom,
-    [`${type}Left`]: gutterLeft
-  };
+  return styleObj;
 };
