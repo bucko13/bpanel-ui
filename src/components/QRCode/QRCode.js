@@ -17,7 +17,7 @@ class QRCode extends PureComponent {
       text: PropTypes.string,
       type: PropTypes.string,
       className: PropTypes.string,
-      containerStyle: PropTypes.object
+      containerStyle: PropTypes.object,
     };
   }
   render() {

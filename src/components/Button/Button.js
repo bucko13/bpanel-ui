@@ -6,7 +6,7 @@ import { connectTheme } from '../../utils';
 class Button extends PureComponent {
   static get propTypes() {
     return {
-      children: PropTypes.node
+      children: PropTypes.node,
     };
   }
 

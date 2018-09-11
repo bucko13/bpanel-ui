@@ -17,6 +17,7 @@ class Dropdown extends PureComponent {
       defaultValue: PropTypes.string,
       theme: PropTypes.object,
       style: PropTypes.object,
+      placeholder: PropTypes.string,
       options: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.arrayOf(
@@ -27,6 +28,12 @@ class Dropdown extends PureComponent {
         ),
       ]),
       onChange: PropTypes.func,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      placeholder: 'Select...',
     };
   }
 
@@ -69,7 +76,13 @@ class Dropdown extends PureComponent {
   }
 
   render() {
-    const { theme = {}, options = [], onChange, defaultValue } = this.props;
+    const {
+      theme = {},
+      options = [],
+      onChange,
+      defaultValue,
+      placeholder,
+    } = this.props;
 
     // TODO: cache options if large
     return (
@@ -77,6 +90,7 @@ class Dropdown extends PureComponent {
         <Select
           defaultValue={defaultValue}
           options={this.formatOptions(options)}
+          placeholder={placeholder}
           styles={this.customStyles(theme)}
           onChange={onChange}
         />

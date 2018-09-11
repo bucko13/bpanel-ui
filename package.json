@@ -5,11 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "babel": "babel src -d dist",
-    "clean": "rm -rf dist/*.js",
+    "clean": "rm -rf dist/*",
     "watch": "cross-env NODE_ENV=development webpack -w",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build:production": "cross-env NODE_ENV=production webpack -p",
-    "lint": "eslint .",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "lint-staged"
   },

@@ -12,12 +12,12 @@ const themeShape = {
     // row can either be an object or function
     // see `rowStyle` in:
     // https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
-    row: {}
+    row: {},
   },
   text: {},
   sidebar: {
-    item: {}
-  }
+    item: {},
+  },
 };
 
 export default ComponentToWrap => {

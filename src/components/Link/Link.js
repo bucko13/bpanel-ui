@@ -8,7 +8,7 @@ class Link extends PureComponent {
   static get propTypes() {
     return {
       children: PropTypes.node,
-      to: PropTypes.string.isRequired
+      to: PropTypes.string.isRequired,
     };
   }
 
@@ -19,7 +19,7 @@ class Link extends PureComponent {
       className: `${theme.link.default} ${otherProps.className}`,
       children: children,
       style,
-      ...otherProps
+      ...otherProps,
     };
     return isExternal ? (
       <a href={to} target="_blank" rel="noopener" {...linkProps} />

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class HeaderRow extends PureComponent {
   static get propTypes() {
     return {
-      columns: PropTypes.node
+      columns: PropTypes.node,
     };
   }
 

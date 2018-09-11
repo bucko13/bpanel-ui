@@ -7,20 +7,20 @@ import { connectTheme } from '../../utils';
 const defaultTabs = [
   { header: 'Tab 1', body: <div>Welcome to bPanel!</div> },
   { header: 'Tab 2', body: <div>Tab 2 content</div> },
-  { header: 'Tab 3', body: <div>Tab 3 content</div> }
+  { header: 'Tab 3', body: <div>Tab 3 content</div> },
 ];
 
 class TabMenu extends PureComponent {
   constructor() {
     super();
     this.state = {
-      selectedIndex: 0
+      selectedIndex: 0,
     };
   }
 
   static get propTypes() {
     return {
-      tabs: PropTypes.arrayOf(PropTypes.object)
+      tabs: PropTypes.arrayOf(PropTypes.object),
     };
   }
 
@@ -28,7 +28,7 @@ class TabMenu extends PureComponent {
     return {
       style: { tabMenu: {} },
       tabs: defaultTabs,
-      theme: { tabMenu: {} }
+      theme: { tabMenu: {} },
     };
   }
 
@@ -51,8 +51,8 @@ class TabMenu extends PureComponent {
           headerTextInactive,
           bodyContainer,
           bodyActive,
-          bodyInactive
-        }
+          bodyInactive,
+        },
       },
       style: {
         tabMenu: {
@@ -62,8 +62,8 @@ class TabMenu extends PureComponent {
           customHeaderTextInactive = {},
           customBodyContainer = {},
           customBodyActive = {},
-          customBodyInactive = {}
-        }
+          customBodyInactive = {},
+        },
       },
       ...otherProps
     } = this.props;
@@ -77,11 +77,11 @@ class TabMenu extends PureComponent {
             const stateStyles = selected
               ? {
                   className: headerTextActive,
-                  customStyles: customHeaderTextActive
+                  customStyles: customHeaderTextActive,
                 }
               : {
                   className: headerTextInactive,
-                  customStyles: customHeaderTextInactive
+                  customStyles: customHeaderTextInactive,
                 };
             return (
               <div

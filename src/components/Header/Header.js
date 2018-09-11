@@ -9,7 +9,7 @@ const getHeader = type => HEADER_CONSTANTS.HEADER_ELEMENTS[type];
 class Header extends PureComponent {
   static get propTypes() {
     return {
-      type: PropTypes.string
+      type: PropTypes.string,
     };
   }
 
