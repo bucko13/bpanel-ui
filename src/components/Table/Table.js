@@ -177,18 +177,30 @@ class Table extends PureComponent {
       rowHeight,
       rowStyle,
       pageSize,
-      style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
       theme,
       ...tableProps
     } = this.props;
 
-    let { tableData } = this.props;
+    let {
+      tableData,
+      style: {
+        containerStyle = {},
+        innerContainerStyle,
+        headerStyle,
+        bodyStyle,
+      },
+    } = this.props;
 
     // hold on to total size of data
     const dataCount = tableData.length;
 
-    // indicates pagination
-    if (pageSize) tableData = this.paginateData(tableData);
+    // slice data and add extra margin to bottom for rendered buttons
+    if (pageSize) {
+      tableData = this.paginateData(tableData);
+      containerStyle = Object.assign({}, containerStyle, {
+        marginBottom: '3rem',
+      });
+    }
 
     const {
       table: { container: containerCss, header: headerCss, body: bodyCss },
@@ -217,8 +229,8 @@ class Table extends PureComponent {
     const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
 
     return (
-      <div>
-        <div className={containerCss} style={containerStyle}>
+      <div className={containerCss} style={containerStyle}>
+        <div>
           <AutoSizer disableHeight>
             {({ width }) => (
               <VirtualizedTable
