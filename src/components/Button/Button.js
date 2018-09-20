@@ -15,15 +15,21 @@ class Button extends PureComponent {
       type = 'primary',
       children,
       theme,
-      style,
+      style = {},
       className,
+      disabled = false,
       ...otherProps
     } = this.props;
+
+    const buttonType = theme.button[type];
+    if (disabled) style.cursor = 'not-allowed';
+
     return (
       <button
-        className={`${className} ${theme.button[type]}`}
+        className={`${className} ${buttonType}`}
         style={style}
         {...otherProps}
+        disabled={disabled}
       >
         {children}
       </button>

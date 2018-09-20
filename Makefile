@@ -1,6 +1,9 @@
 babel:
 	@npm run babel
 
+watch:
+	@npm run babel:watch
+
 build-dev:
 	@npm run build:dev
 

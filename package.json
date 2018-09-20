@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "babel": "babel src -d dist",
+    "babel:watch": "babel --watch src -d dist",
     "clean": "rm -rf dist/*",
     "watch": "cross-env NODE_ENV=development webpack -w",
     "build:dev": "cross-env NODE_ENV=development webpack",
