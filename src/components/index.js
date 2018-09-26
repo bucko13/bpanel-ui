@@ -9,6 +9,7 @@ import { Table, ExpandedDataRow, TransactionTable } from './Table';
 import TabMenu from './TabMenu';
 import Text from './Text';
 import QRCode from './QRCode';
+export { default as Spinner } from './Spinner';
 
 export {
   Button,
@@ -18,7 +19,6 @@ export {
   Input,
   Link,
   SidebarNavItem,
-  Spinner,
   Table,
   TabMenu,
   TransactionTable,

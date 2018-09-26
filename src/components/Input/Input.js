@@ -14,7 +14,7 @@ class Input extends PureComponent {
       style: PropTypes.object,
       theme: PropTypes.object,
       type: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     };
   }
 

@@ -19,6 +19,7 @@ const WebpackConfig = {
     react: 'umd react',
     'react-dom': 'umd react-dom',
     'react-router-dom': 'umd react-router-dom',
+    '@bpanel/bpanel-utils': '@bpanel/bpanel-utils',
   },
 
   node: {

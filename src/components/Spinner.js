@@ -10,6 +10,8 @@ class Spinner extends PureComponent {
       style: PropTypes.object,
       theme: PropTypes.object,
       error: PropTypes.object,
+      pastDelay: PropTypes.bool,
+      timedOut: PropTypes.bool,
       size: PropTypes.string,
     };
   }
@@ -22,6 +24,8 @@ class Spinner extends PureComponent {
       size = '2x',
       theme: { themeVariables: { themeColors } },
       error,
+      timedOut = false, // for use with react-loader to allow for timed out message
+      pastDelay = true, // for use with react-loader to avoid flashing the loading icon
       ...otherProps
     } = this.props;
 
@@ -33,7 +37,13 @@ class Spinner extends PureComponent {
           There was an error loading the content{error.message ? `: ${error.message}` : ''}
         </div>
       );
-    } else {
+    } else if (timedOut) {
+      loader = (
+        <div className="error" style={style} {...otherProps}>
+          Network request timed out.
+        </div>
+      );
+    } else if (pastDelay) {
       loader = (
         <div
           className={`${className} fa fa-spinner fa-spin fa-${size}`}
@@ -41,6 +51,8 @@ class Spinner extends PureComponent {
           {...otherProps}
         />
       );
+    } else {
+      loader = '';
     }
     return <div>{loader}</div>;
   }
