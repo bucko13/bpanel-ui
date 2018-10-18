@@ -22,8 +22,8 @@ class Dropdown extends PureComponent {
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.arrayOf(
           PropTypes.shape({
-            value: PropTypes.number,
-            label: PropTypes.shape,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+            label: PropTypes.string,
           })
         ),
       ]),
