@@ -35,12 +35,13 @@ class Input extends PureComponent {
       theme,
       style,
       value,
+      className,
       ...otherProps
     } = this.props;
 
     return (
       <input
-        className={theme.input[type]}
+        className={`${theme.input[type]} ${className}`}
         name={name}
         onChange={onChange}
         placeholder={placeholder}
