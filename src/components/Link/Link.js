@@ -8,12 +8,28 @@ class Link extends PureComponent {
   static get propTypes() {
     return {
       children: PropTypes.node,
-      to: PropTypes.string.isRequired,
+      to: PropTypes.string,
+      dummy: PropTypes.bool,
+      onClick: PropTypes.func,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      dummy: false,
     };
   }
 
   render() {
-    const { children, to, theme, style, ...otherProps } = this.props;
+    const {
+      children,
+      to,
+      theme,
+      style,
+      dummy,
+      onClick,
+      ...otherProps
+    } = this.props;
     const isExternal = /^https?:\/\//.test(to);
     const linkProps = {
       className: `${theme.link.default} ${otherProps.className}`,
@@ -21,11 +37,16 @@ class Link extends PureComponent {
       style,
       ...otherProps,
     };
-    return isExternal ? (
-      <a href={to} target="_blank" rel="noopener" {...linkProps} />
-    ) : (
-      <RouterLink to={to} {...linkProps} />
-    );
+    /*
+     * prioritize dummy links
+     * then external links
+     * then react router links
+     */
+    if (dummy)
+      return <a href="javascript:void(0)" onClick={onClick} {...linkProps} />;
+    else if (isExternal)
+      return <a href={to} target="_blank" rel="noopener" {...linkProps} />;
+    else return <RouterLink to={to} {...linkProps} />;
   }
 }
 

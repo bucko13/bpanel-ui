@@ -21,6 +21,7 @@ class TabMenu extends PureComponent {
   static get propTypes() {
     return {
       tabs: PropTypes.arrayOf(PropTypes.object),
+      selectedIndex: PropTypes.number,
     };
   }
 
@@ -29,12 +30,26 @@ class TabMenu extends PureComponent {
       style: { tabMenu: {} },
       tabs: defaultTabs,
       theme: { tabMenu: {} },
+      selectedIndex: null,
+      onTabClick: () => {},
     };
+  }
+
+  // allow for selectedIndex to be managed in parent component
+  static getDerivedStateFromProps(props, state) {
+    if (props.selectedIndex && props.selectedIndex !== state.selectedIndex)
+      return { selectedIndex: props.selectedIndex };
+    return null;
+  }
+
+  onTabClick(value) {
+    this.setState({ selectedIndex: value });
+    this.props.onTabClick(value);
   }
 
   renderHeader(header, index) {
     return (
-      <div onClick={() => this.setState({ selectedIndex: index })}>
+      <div onClick={() => this.onTabClick(index)}>
         <Text>{header}</Text>
       </div>
     );
