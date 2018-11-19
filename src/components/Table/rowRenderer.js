@@ -28,11 +28,13 @@ export default function defaultRowRenderer(
     expandedData,
     tableData,
     theme,
+    selectable,
   }
 ) {
   const a11yProps = {};
   let expandedComponent = null;
-  let glyph; // up or down arrow glyph, indicates expanding row
+  let expandVisualAid = null;
+  let expandGlyph; // up or down arrow glyph, indicates expanding row
 
   if (
     onRowClick ||
@@ -62,33 +64,31 @@ export default function defaultRowRenderer(
       a11yProps.onContextMenu = event =>
         onRowRightClick({ event, index, rowData });
   }
-  if (index === selectedIndex) {
-    glyph = 'fa-chevron-up';
-    const data = expandedData ? expandedData : tableData;
-    expandedComponent = (
-      <div
-        style={{
-          ...style,
-          top: style.top + rowHeight,
-          height: expandedHeight,
-        }}
-      >
-        <ExpandedComponent expandedData={data[selectedIndex]} />
-      </div>
-    );
-  } else if (index > selectedIndex) {
-    style.top = style.top + expandedHeight;
-  }
 
-  // glyph hasn't been set, this isn't a selected row
-  if (glyph === undefined) glyph = 'fa-chevron-down';
+  if (expandedData) {
+    if (index === selectedIndex) {
+      expandGlyph = 'fa-chevron-up';
+      expandedComponent = (
+        <div
+          style={{
+            ...style,
+            top: style.top + rowHeight,
+            height: expandedHeight,
+          }}
+        >
+          <ExpandedComponent expandedData={expandedData[selectedIndex]} />
+        </div>
+      );
+    } else if (index > selectedIndex) {
+      style.top = style.top + expandedHeight;
+    }
 
-  // assume column can expand if expandedData is truthy
-  let expandVisualAid;
-  if (!!expandedData) {
+    // glyph hasn't been set, this isn't a selected row
+    if (expandGlyph === undefined) expandGlyph = 'fa-chevron-down';
+
     expandVisualAid = (
       <div className={theme.expandedRow.expandVisualAid}>
-        <i className={`fa ${glyph}`} />
+        <i className={`fa ${expandGlyph}`} />
       </div>
     );
   }

@@ -23,7 +23,7 @@ class Table extends PureComponent {
        */
       selectedIndex: undefined,
     };
-    this.onRowClick = this.onRowClick.bind(this);
+    this.selectRow = this.selectRow.bind(this);
   }
 
   static get propTypes() {
@@ -85,6 +85,7 @@ class Table extends PureComponent {
    */
 
   getTableHeight(tableData, selectedIndex, openHeight) {
+    openHeight = openHeight ? openHeight : 0; // selectable but not expandable
     return (
       (tableData.length + 1) * 30 +
       (selectedIndex || selectedIndex === 0 ? openHeight : 0)
@@ -92,15 +93,15 @@ class Table extends PureComponent {
   }
 
   /**
-   * onRowClick handles an onClick event to expand a table row.
+   * selectRow updates selectedIndex when a row is clicked.
    */
 
-  onRowClick({ index }) {
+  selectRow({ index }) {
     const { expandedHeight } = this.props;
     const { selectedIndex } = this.state;
-    const selectedIndex =
-      expandedHeight && index === selectedIndex ? undefined : index;
-    this.setState({ selectedIndex: selectedIndex });
+    const unselect = expandedHeight ? undefined : index;
+    const updateIndex = index === selectedIndex ? unselect : index;
+    this.setState({ selectedIndex: updateIndex });
   }
 
   render() {
@@ -115,6 +116,7 @@ class Table extends PureComponent {
       rowStyle,
       style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
       theme,
+      selectable,
       ...tableProps
     } = this.props;
 
@@ -140,9 +142,23 @@ class Table extends PureComponent {
       expandedRowStyles,
       tableData,
       theme,
+      selectable,
     };
 
-    const rowOnClick = expandedHeight ? this.onRowClick : onRowClick;
+    // custom click actions for certain table formats
+    const rowOnClick = e => {
+      if (expandedHeight || selectable) {
+        this.selectRow(e);
+      }
+
+      // custom function has been passed as a property
+      if (onRowClick) {
+        onRowClick(e);
+      }
+
+      // default: do nothing
+      return;
+    };
 
     return (
       <div className={containerCss} style={containerStyle}>
