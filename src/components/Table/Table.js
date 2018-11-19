@@ -161,7 +161,7 @@ class Table extends PureComponent {
               rowGetter={({ index }) => tableData[index]}
               rowHeight={rowHeight}
               rowRenderer={options => rowRenderer(options, rowRendererOptions)}
-              rowStyle={tableRowStyle || rowStyle}
+              rowStyle={rowStyle || tableRowStyle}
               width={width}
               {...tableProps}
             >
