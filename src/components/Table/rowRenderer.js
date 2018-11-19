@@ -20,7 +20,7 @@ export default function defaultRowRenderer(
     style,
   },
   {
-    openIndex,
+    selectedIndex,
     ExpandedComponent,
     expandedHeight,
     rowHeight,
@@ -62,7 +62,7 @@ export default function defaultRowRenderer(
       a11yProps.onContextMenu = event =>
         onRowRightClick({ event, index, rowData });
   }
-  if (index === openIndex) {
+  if (index === selectedIndex) {
     glyph = 'fa-chevron-up';
     const data = expandedData ? expandedData : tableData;
     expandedComponent = (
@@ -73,10 +73,10 @@ export default function defaultRowRenderer(
           height: expandedHeight,
         }}
       >
-        <ExpandedComponent expandedData={data[openIndex]} />
+        <ExpandedComponent expandedData={data[selectedIndex]} />
       </div>
     );
-  } else if (index > openIndex) {
+  } else if (index > selectedIndex) {
     style.top = style.top + expandedHeight;
   }
 

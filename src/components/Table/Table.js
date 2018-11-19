@@ -18,10 +18,10 @@ class Table extends PureComponent {
     super();
     this.state = {
       /**
-       * openIndex tracks the row in the table that is open
+       * selectedIndex tracks the row in the table that is open
        * Its value is the index of the row in the table
        */
-      openIndex: undefined,
+      selectedIndex: undefined,
     };
     this.onRowClick = this.onRowClick.bind(this);
   }
@@ -84,10 +84,10 @@ class Table extends PureComponent {
    * if a row is expanded.
    */
 
-  getTableHeight(tableData, openIndex, openHeight) {
+  getTableHeight(tableData, selectedIndex, openHeight) {
     return (
       (tableData.length + 1) * 30 +
-      (openIndex || openIndex === 0 ? openHeight : 0)
+      (selectedIndex || selectedIndex === 0 ? openHeight : 0)
     );
   }
 
@@ -97,10 +97,10 @@ class Table extends PureComponent {
 
   onRowClick({ index }) {
     const { expandedHeight } = this.props;
-    const { openIndex } = this.state;
+    const { selectedIndex } = this.state;
     const selectedIndex =
-      expandedHeight && index === openIndex ? undefined : index;
-    this.setState({ openIndex: selectedIndex });
+      expandedHeight && index === selectedIndex ? undefined : index;
+    this.setState({ selectedIndex: selectedIndex });
   }
 
   render() {
@@ -124,15 +124,15 @@ class Table extends PureComponent {
       expandedRow: expandedRowStyles,
     } = theme;
 
-    const { openIndex } = this.state;
+    const { selectedIndex } = this.state;
     const _colProps = this.getColProps();
     const tableHeight = this.getTableHeight(
       tableData,
-      openIndex,
+      selectedIndex,
       expandedHeight
     );
     const rowRendererOptions = {
-      openIndex,
+      selectedIndex,
       ExpandedComponent,
       expandedHeight,
       expandedData,
