@@ -22,6 +22,9 @@ class TabMenu extends PureComponent {
     return {
       tabs: PropTypes.arrayOf(PropTypes.object),
       selectedIndex: PropTypes.number,
+      orientation: PropTypes.string,
+      navColCount: PropTypes.number,
+      tabColCount: PropTypes.number,
     };
   }
 
@@ -32,6 +35,7 @@ class TabMenu extends PureComponent {
       theme: { tabMenu: {} },
       selectedIndex: null,
       onTabClick: () => {},
+      orientation: 'horizontal',
     };
   }
 
@@ -57,6 +61,10 @@ class TabMenu extends PureComponent {
 
   render() {
     const {
+      orientation,
+      className = '',
+      navColCount,
+      tabColCount,
       tabs,
       theme: {
         tabMenu: {
@@ -67,6 +75,7 @@ class TabMenu extends PureComponent {
           bodyContainer,
           bodyActive,
           bodyInactive,
+          verticalHeaderLink,
         },
       },
       style: {
@@ -83,10 +92,18 @@ class TabMenu extends PureComponent {
       ...otherProps
     } = this.props;
     const { selectedIndex } = this.state;
-
     return (
-      <div>
-        <div className={headerContainer} style={customHeaderContainer}>
+      <div
+        className={`${orientation === 'vertical'
+          ? 'd-flex flex-row mt-2'
+          : ''} ${className}`}
+      >
+        <div
+          className={`${headerContainer} ${navColCount
+            ? 'col-'.concat(navColCount)
+            : ''} nav ${orientation === 'vertical' ? 'flex-column' : ''}`}
+          style={customHeaderContainer}
+        >
           {tabs.map(({ header }, index) => {
             const selected = selectedIndex === index;
             const stateStyles = selected
@@ -100,7 +117,10 @@ class TabMenu extends PureComponent {
                 };
             return (
               <div
-                className={`${headerText} ${stateStyles.className}`}
+                className={`${headerText} ${stateStyles.className} nav-link ${orientation ===
+                'vertical'
+                  ? `${verticalHeaderLink} nav flex-column`
+                  : ''}`}
                 key={`${header}-header-${index}`}
                 style={stateStyles.customStyles}
               >
@@ -109,21 +129,23 @@ class TabMenu extends PureComponent {
             );
           })}
         </div>
-        {tabs.map(({ body, header }, index) => {
-          const selected = selectedIndex === index;
-          const stateStyles = selected
-            ? { className: bodyActive, customStyles: customBodyActive }
-            : { className: bodyInactive, customStyles: customBodyInactive };
-          return (
-            <div
-              className={`${bodyContainer} ${stateStyles.className}`}
-              key={`${header}-body-${index}`}
-              style={stateStyles.customStyles}
-            >
-              {body}
-            </div>
-          );
-        })}
+        <div className={`col${tabColCount ? `-${tabColCount}` : ''} p-0`}>
+          {tabs.map(({ body, header }, index) => {
+            const selected = selectedIndex === index;
+            const stateStyles = selected
+              ? { className: bodyActive, customStyles: customBodyActive }
+              : { className: bodyInactive, customStyles: customBodyInactive };
+            return (
+              <div
+                className={`${bodyContainer} ${stateStyles.className}`}
+                key={`${header}-body-${index}`}
+                style={stateStyles.customStyles}
+              >
+                {body}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
