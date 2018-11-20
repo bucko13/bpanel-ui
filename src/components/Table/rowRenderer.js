@@ -100,6 +100,8 @@ export default function defaultRowRenderer(
 
   // Selectable rows have an indicator pointing to selected row
   if (selectable) {
+    /*
+    // Dsiabled for background-color option instead
     const indicatorGlyph =
       index === selectedIndex ? 'fa-arrow-right' : 'fa-circle';
 
@@ -108,8 +110,12 @@ export default function defaultRowRenderer(
         <i className={`fa ${indicatorGlyph}`} />
       </div>
     );
+  */
 
-    selectableRowClass = theme.table.selectableRow;
+    selectableRowClass =
+      index === selectedIndex
+        ? theme.table.selectedRow
+        : theme.table.selectableRow;
   }
 
   return (
