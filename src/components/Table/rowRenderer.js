@@ -35,8 +35,7 @@ export default function defaultRowRenderer(
   let expandedComponent = null;
   let expandVisualAid = null;
   let expandGlyph; // up or down arrow glyph, indicates expanding row
-  let selectedRowIndicator = null; // arrow pointing to selected row
-  let selectableRowClass = null;
+  let extraRowClass = null;
 
   if (
     onRowClick ||
@@ -95,7 +94,7 @@ export default function defaultRowRenderer(
       </div>
     );
 
-    selectableRowClass = theme.table.selectableRow;
+    extraRowClass = theme.table.expandableRow;
   }
 
   // Refactored from bpanel/webapp/config/themeConfig/themeCreator,js
@@ -110,7 +109,7 @@ export default function defaultRowRenderer(
 
   // Selectable rows class properties overrides base class
   if (selectable) {
-    selectableRowClass =
+    extraRowClass =
       index === selectedIndex
         ? theme.table.selectedRow
         : theme.table.selectableRow;
@@ -122,11 +121,10 @@ export default function defaultRowRenderer(
       {/* Empty style object added to remove react-virtualized warning */}
       <div
         {...a11yProps}
-        className={`${className} ${baseRowClass} ${selectableRowClass}`}
+        className={`${className} ${baseRowClass} ${extraRowClass}`}
         role="row"
         style={style}
       >
-        {selectedRowIndicator}
         {columns}
         {expandVisualAid}
       </div>
