@@ -170,7 +170,9 @@ class Table extends PureComponent {
               containerStyle={innerContainerStyle || { overflow: 'visible' }}
               headerClassName={headerCss}
               headerHeight={headerHeight}
-              headerRowRenderer={props => <HeaderRow {...props} />}
+              headerRowRenderer={props => (
+                <HeaderRow {...props} theme={theme} />
+              )}
               headerStyle={headerStyle}
               onRowClick={rowOnClick}
               rowCount={tableData.length}

@@ -9,9 +9,13 @@ export default class HeaderRow extends PureComponent {
   }
 
   render() {
-    const { columns, ...rest } = this.props;
+    const { columns, className, theme, style } = this.props;
     return (
-      <div role="row" {...rest}>
+      <div
+        className={`${className} ${theme.table.headerRow}`}
+        role="row"
+        style={style}
+      >
         {columns}
       </div>
     );
