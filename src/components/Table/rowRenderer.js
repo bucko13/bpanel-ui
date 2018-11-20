@@ -98,20 +98,18 @@ export default function defaultRowRenderer(
     selectableRowClass = theme.table.selectableRow;
   }
 
-  // Selectable rows have an indicator pointing to selected row
+  // Refactored from bpanel/webapp/config/themeConfig/themeCreator,js
+  let baseRowClass;
+  if (index === -1) {
+    baseRowClass = theme.table.headerRow;
+  } else if (index % 2 === 0 || index === 0) {
+    baseRowClass = theme.table.evenRow;
+  } else {
+    baseRowClass = theme.table.oddRow;
+  }
+
+  // Selectable rows class properties overrides base class
   if (selectable) {
-    /*
-    // Dsiabled for background-color option instead
-    const indicatorGlyph =
-      index === selectedIndex ? 'fa-arrow-right' : 'fa-circle';
-
-    selectedRowIndicator = (
-      <div className={theme.table.selectedRowIndicator}>
-        <i className={`fa ${indicatorGlyph}`} />
-      </div>
-    );
-  */
-
     selectableRowClass =
       index === selectedIndex
         ? theme.table.selectedRow
@@ -124,7 +122,7 @@ export default function defaultRowRenderer(
       {/* Empty style object added to remove react-virtualized warning */}
       <div
         {...a11yProps}
-        className={`${selectableRowClass} ${className}`}
+        className={`${className} ${baseRowClass} ${selectableRowClass}`}
         role="row"
         style={style}
       >
