@@ -35,6 +35,8 @@ export default function defaultRowRenderer(
   let expandedComponent = null;
   let expandVisualAid = null;
   let expandGlyph; // up or down arrow glyph, indicates expanding row
+  let selectedRowIndicator = null; // arrow pointing to selected row
+  let selectableRowClass = null;
 
   if (
     onRowClick ||
@@ -65,6 +67,7 @@ export default function defaultRowRenderer(
         onRowRightClick({ event, index, rowData });
   }
 
+  // Expandable rows get up/down icon and hidden expanded data content
   if (expandedData) {
     if (index === selectedIndex) {
       expandGlyph = 'fa-chevron-up';
@@ -91,13 +94,35 @@ export default function defaultRowRenderer(
         <i className={`fa ${expandGlyph}`} />
       </div>
     );
+
+    selectableRowClass = theme.table.selectableRow;
+  }
+
+  // Selectable rows have an indicator pointing to selected row
+  if (selectable) {
+    const indicatorGlyph =
+      index === selectedIndex ? 'fa-arrow-right' : 'fa-circle';
+
+    selectedRowIndicator = (
+      <div className={theme.table.selectedRowIndicator}>
+        <i className={`fa ${indicatorGlyph}`} />
+      </div>
+    );
+
+    selectableRowClass = theme.table.selectableRow;
   }
 
   return (
     <div key={key} style={{}}>
       {' '}
       {/* Empty style object added to remove react-virtualized warning */}
-      <div {...a11yProps} className={className} role="row" style={style}>
+      <div
+        {...a11yProps}
+        className={`${selectableRowClass} ${className}`}
+        role="row"
+        style={style}
+      >
+        {selectedRowIndicator}
         {columns}
         {expandVisualAid}
       </div>
