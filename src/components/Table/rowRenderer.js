@@ -24,6 +24,10 @@ export default function defaultRowRenderer(
     ExpandedComponent,
     expandedHeight,
     rowHeight,
+    hoverExpandableRow,
+    hoverRow,
+    selectedRow,
+    hoverIndex,
     expandedRowStyles,
     expandedData,
     tableData,
@@ -65,6 +69,18 @@ export default function defaultRowRenderer(
         onRowRightClick({ event, index, rowData });
   }
 
+  // selectable styles
+  let rowClassNames = className;
+  if (selectable) {
+    if (index === hoverIndex && hoverRow)
+      rowClassNames = rowClassNames.concat(' ', hoverRow);
+    if (index === selectedIndex && selectedRow)
+      rowClassNames = rowClassNames.concat(' ', selectedRow);
+  }
+
+  if (expandedHeight && index === hoverIndex)
+    rowClassNames = rowClassNames.concat(' ', hoverExpandableRow);
+
   // Expandable rows get up/down icon and hidden expanded data content
   if (expandedData) {
     if (index === selectedIndex) {
@@ -98,7 +114,7 @@ export default function defaultRowRenderer(
     <div key={key} style={{}}>
       {' '}
       {/* Empty style object added to remove react-virtualized warning */}
-      <div {...a11yProps} className={className} role="row" style={style}>
+      <div {...a11yProps} className={rowClassNames} role="row" style={style}>
         {columns}
         {expandVisualAid}
       </div>
