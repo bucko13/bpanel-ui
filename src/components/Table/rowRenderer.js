@@ -35,8 +35,6 @@ export default function defaultRowRenderer(
   let expandedComponent = null;
   let expandVisualAid = null;
   let expandGlyph; // up or down arrow glyph, indicates expanding row
-  let baseRowClass; // sets alternating bg colors for odd/even rows
-  let extraRowClass; // overrides baseRowClass for selectable / expandable rows
 
   if (
     onRowClick ||
@@ -94,37 +92,13 @@ export default function defaultRowRenderer(
         <i className={`fa ${expandGlyph}`} />
       </div>
     );
-
-    extraRowClass = theme.table.expandableRow;
-  }
-
-  // Refactored from bpanel/webapp/config/themeConfig/themeCreator,js
-  if (index === -1) {
-    baseRowClass = theme.table.headerRow;
-  } else if (index % 2 === 0 || index === 0) {
-    baseRowClass = theme.table.evenRow;
-  } else {
-    baseRowClass = theme.table.oddRow;
-  }
-
-  // Selectable rows class properties overrides base class
-  if (selectable) {
-    extraRowClass =
-      index === selectedIndex
-        ? theme.table.selectedRow
-        : theme.table.selectableRow;
   }
 
   return (
     <div key={key} style={{}}>
       {' '}
       {/* Empty style object added to remove react-virtualized warning */}
-      <div
-        {...a11yProps}
-        className={`${className} ${baseRowClass} ${extraRowClass}`}
-        role="row"
-        style={style}
-      >
+      <div {...a11yProps} className={className} role="row" style={style}>
         {columns}
         {expandVisualAid}
       </div>

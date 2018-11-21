@@ -18,10 +18,12 @@ class Table extends PureComponent {
     super();
     this.state = {
       /**
-       * selectedIndex tracks the row in the table that is open
+       * selectedIndex tracks the row in the table that is selected
        * Its value is the index of the row in the table
+       * hoverIndex is similar, for mouseOver state
        */
       selectedIndex: undefined,
+      hoverIndex: null,
     };
     this.selectRow = this.selectRow.bind(this);
   }
@@ -160,6 +162,30 @@ class Table extends PureComponent {
       return;
     };
 
+    // mouse hover actions
+    const rowOnMouseOver = e => {
+      this.setState({ hoverIndex: e.index });
+    };
+    const rowOnMouseOut = e => {
+      this.setState({ hoverIndex: null });
+    };
+    const tableRowStyleCombiner = e => {
+      let style = tableRowStyle(e);
+
+      if (selectable) {
+        if (e.index === this.state.hoverIndex)
+          style = { ...style, ...theme.themeConfig.table.hoverRow };
+
+        if (e.index === this.state.selectedIndex)
+          style = { ...style, ...theme.themeConfig.table.selectedRow };
+      }
+
+      if (expandedHeight && e.index === this.state.hoverIndex)
+        style = { ...style, ...theme.themeConfig.table.hoverExpandableRow };
+
+      return style;
+    };
+
     return (
       <div className={containerCss} style={containerStyle}>
         <AutoSizer disableHeight>
@@ -175,11 +201,13 @@ class Table extends PureComponent {
               )}
               headerStyle={headerStyle}
               onRowClick={rowOnClick}
+              onRowMouseOver={rowOnMouseOver}
+              onRowMouseOut={rowOnMouseOut}
               rowCount={tableData.length}
               rowGetter={({ index }) => tableData[index]}
               rowHeight={rowHeight}
               rowRenderer={options => rowRenderer(options, rowRendererOptions)}
-              rowStyle={rowStyle}
+              rowStyle={rowStyle || tableRowStyleCombiner}
               width={width}
               {...tableProps}
             >
