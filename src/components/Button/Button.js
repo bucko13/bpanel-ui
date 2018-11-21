@@ -16,7 +16,7 @@ class Button extends PureComponent {
       children,
       theme,
       style,
-      className,
+      className = '',
       ...otherProps
     } = this.props;
     return (

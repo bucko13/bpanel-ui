@@ -10,6 +10,7 @@ import TabMenu from './TabMenu';
 import Text from './Text';
 import QRCode from './QRCode';
 export { default as Spinner } from './Spinner';
+export { default as Label } from './Label';
 
 export {
   Button,
