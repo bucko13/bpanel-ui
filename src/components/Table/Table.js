@@ -191,9 +191,7 @@ class Table extends PureComponent {
               containerStyle={innerContainerStyle || { overflow: 'visible' }}
               headerClassName={headerCss}
               headerHeight={headerHeight}
-              headerRowRenderer={props => (
-                <HeaderRow {...props} theme={theme} />
-              )}
+              headerRowRenderer={props => <HeaderRow {...props} />}
               headerStyle={headerStyle}
               onRowClick={rowOnClick}
               onRowMouseOver={rowOnMouseOver}

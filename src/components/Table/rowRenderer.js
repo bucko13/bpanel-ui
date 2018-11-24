@@ -78,6 +78,9 @@ export default function defaultRowRenderer(
       rowClassNames = rowClassNames.concat(' ', selectedRow);
   }
 
+  // style the header row
+  if (index === -1) rowClassNames = theme.table.headerRow;
+
   if (expandedHeight && index === hoverIndex)
     rowClassNames = rowClassNames.concat(' ', hoverExpandableRow);
 
