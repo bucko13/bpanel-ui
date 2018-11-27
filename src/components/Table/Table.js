@@ -55,6 +55,17 @@ class Table extends PureComponent {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.setSelectedIndex >= 0) {
+      return {
+        ...state,
+        selectedIndex: props.setSelectedIndex,
+      };
+    }
+
+    return null;
+  }
+
   /**
    * getColProps sets the header(top row) data for the table.
    */
