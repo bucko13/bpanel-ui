@@ -55,6 +55,17 @@ class Table extends PureComponent {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.setSelectedIndex >= 0) {
+      return {
+        ...state,
+        selectedIndex: props.setSelectedIndex,
+      };
+    }
+
+    return null;
+  }
+
   /**
    * getColProps sets the header(top row) data for the table.
    */
@@ -119,7 +130,6 @@ class Table extends PureComponent {
       style: { containerStyle, innerContainerStyle, headerStyle, bodyStyle },
       theme,
       selectable,
-      reset,
       ...tableProps
     } = this.props;
 
@@ -129,7 +139,6 @@ class Table extends PureComponent {
       expandedRow: expandedRowStyles,
     } = theme;
 
-    if (reset) this.setState({ selectedIndex: 0 });
     const { selectedIndex } = this.state;
     const _colProps = this.getColProps();
     const tableHeight = this.getTableHeight(
